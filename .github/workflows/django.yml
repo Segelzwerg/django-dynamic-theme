@@ -25,4 +25,4 @@ jobs:
       uses: abatilo/actions-poetry@v2
     - name: Run Tests
       run: |
-        poetry run python manage.py test
+        poetry run coverage run manage.py test
