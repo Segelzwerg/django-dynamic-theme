@@ -17,6 +17,7 @@ httpx = "^0.25.2"
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0.3"
 coverage = "^7.3.3"
+flake8 = "^7.0.0"
 
 [build-system]
 requires = ["poetry-core"]
