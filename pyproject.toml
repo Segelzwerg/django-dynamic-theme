@@ -11,7 +11,7 @@ django = "^5.0"
 django-embed-video = "^1.4.9"
 setuptools = "^69.0.2"
 google-api-python-client = "^2.111.0"
-httpx = "^0.25.2"
+httpx = "^0.26.0"
 pillow = "^10.2.0"
 
 
