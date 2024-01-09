@@ -39,6 +39,6 @@ jobs:
 
       - name: Run Tests
         env:
-          SECRET_KEY: ${{ SECRET_KEY }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           poetry run coverage run manage.py test
