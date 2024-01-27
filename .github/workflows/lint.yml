@@ -16,10 +16,10 @@ jobs:
           python-version: 3.12
 
       - name: Lint sources with flake8
-        run: poetry run flake8 lh_django --count --show-source --statistics
+        run: poetry run flake8 lh_django about_us contact home navigation repertoire videos --count --show-source --statistics
 
       - name: Lint sources with pylint
-        run: poetry run pylint lh_django
+        run: poetry run pylint lh_django about_us contact home navigation repertoire videos
 
   security:
     runs-on: ubuntu-latest
@@ -31,5 +31,5 @@ jobs:
         uses: tj-actions/bandit@v5
         with:
           targets: |
-            lh_django
+            lh_django about_us contact home navigation repertoire videos
           options: "-r"
