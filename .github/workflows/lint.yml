@@ -19,7 +19,7 @@ jobs:
         run: poetry run flake8 lh_django about_us contact home navigation repertoire videos --count --show-source --statistics
 
       - name: Lint sources with pylint
-        run: poetry run pylint lh_django about_us contact home navigation repertoire videos
+        run: poetry run pylint --load-plugins=pylint_django --django-settings-module=lh_django.settings lh_django about_us contact home navigation repertoire videos
 
   security:
     runs-on: ubuntu-latest
