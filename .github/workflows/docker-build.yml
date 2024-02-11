@@ -13,6 +13,10 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME_GHCR: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   docker:
     runs-on: ubuntu-latest
