@@ -16,7 +16,9 @@ env:
 jobs:
   docker:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: [ 3.12 ]
     steps:
       - uses: actions/checkout@v4
 
@@ -57,3 +59,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            PYTHON_VERSION=${{ matrix.python-version }}
