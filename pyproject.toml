@@ -27,3 +27,6 @@ pylint-django = "^2.5.5"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.bandit]
+exclude = ["tests*.py"]

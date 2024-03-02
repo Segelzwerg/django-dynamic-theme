@@ -32,4 +32,4 @@ jobs:
         with:
           targets: |
             lh_django about_us contact home navigation repertoire videos
-          options: "-r -x tests*.py"
+          options: "-r"
