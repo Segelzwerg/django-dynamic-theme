@@ -29,4 +29,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.bandit]
-exclude = "*/tests*.py"
+exclude_dirs = "*/tests.py"
