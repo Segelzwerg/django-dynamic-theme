@@ -16,10 +16,10 @@ jobs:
           python-version: 3.12
 
       - name: Lint sources with flake8
-        run: poetry run flake8 lh_django about_us contact home navigation repertoire videos --count --show-source --statistics
+        run: poetry run flake8 lh_django about_us contact home navigation repertoire videos theme --count --show-source --statistics
 
       - name: Lint sources with pylint
-        run: poetry run pylint --load-plugins=pylint_django --django-settings-module=lh_django.settings lh_django about_us contact home navigation repertoire videos
+        run: poetry run pylint --load-plugins=pylint_django --django-settings-module=lh_django.settings lh_django about_us contact home navigation repertoire videos theme
 
   security:
     runs-on: ubuntu-latest
