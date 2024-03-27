@@ -7,21 +7,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('theme', '0003_alter_background_primary_bg'),
+        ('django_dynamic_theme', '0003_alter_background_primary_bg'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='background',
-            name='primary_bg',
-            field=colorfield.fields.ColorField(default='#FFFFFF', image_field=None, max_length=25, samples=None, verbose_name='Primary Name'),
+            model_name="background",
+            name="primary_bg",
+            field=colorfield.fields.ColorField(
+                default="#FFFFFF",
+                image_field=None,
+                max_length=25,
+                samples=None,
+                verbose_name="Primary Name",
+            ),
         ),
         migrations.CreateModel(
-            name='Theme',
+            name="Theme",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('background', models.ManyToManyField(to='theme.background')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                (
+                    "background",
+                    models.ManyToManyField(to="django_dynamic_theme.background"),
+                ),
             ],
         ),
     ]
