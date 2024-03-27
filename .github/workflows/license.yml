@@ -32,11 +32,9 @@ jobs:
               run: poetry install --no-interaction
 
             - name: Freeze Dependencies
-              shell: bash
               run: poetry export --without-hashes --format=requirements.txt > requirements.txt
 
             - name: Check Licenses
-              shell: bash
               id: license-check
               run: |
                 echo "AUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check authorized packages" | grep -vE "packages..." | grep -oP "^\S+")" >> "$GITHUB_OUTPUT"
