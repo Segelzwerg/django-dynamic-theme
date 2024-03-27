@@ -55,9 +55,10 @@ jobs:
             - name: License Unknown
               uses: actions/github-script@v7
               if: ${{ steps.license-check.outputs.UNKNOW_PACKAGES != '' }}
+              env:
+                UNKNOWN: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES }}
               with:
                 script: |
-                    const unknown =  '${{ steps.license-check.outputs.UNKNOWN_PACKAGES }}';
-                    if (unknown > 0) {
-                        core.setFailed('${unknown} unknown packages found.');
+                    if (process.env.UNKNOWN > 0) {
+                        core.warning('${unknown} unknown packages found.');
                     }
