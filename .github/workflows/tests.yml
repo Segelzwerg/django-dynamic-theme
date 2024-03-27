@@ -23,5 +23,5 @@ jobs:
       - name: 'Unittest with pytest & coverage'
         uses: Whist-Team/actions/test-cov@v2
         with:
-          package: whist_server
+          package: djang_dynamic_theme
           token: ${{ secrets.CODECOV_TOKEN }}
