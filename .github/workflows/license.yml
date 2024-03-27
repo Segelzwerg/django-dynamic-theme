@@ -46,10 +46,10 @@ jobs:
               if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES != '' }}
               with:
                 script: |
-                    const unauthorized = '${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }}';
-                    if (unauthorized > 0) {
-                        core.setFailed('${unauthorized} unauthorized packages found.');
-                    }
+                  const unauthorized = '${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }}';
+                  if (unauthorized > 0) {
+                      core.setFailed('${unauthorized} unauthorized packages found.');
+                  }
 
 
             - name: License Unknown
