@@ -15,7 +15,12 @@ jobs:
       # IMPORTANT: this permission is mandatory for trusted publishing
       id-token: write
     steps:
-      # retrieve your distributions here
+      - uses: Whist-Team/actions/setup-poetry@v2
+        with:
+          python-version: 3.12
+
+      - name: Build project
+        run: poetry build
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
