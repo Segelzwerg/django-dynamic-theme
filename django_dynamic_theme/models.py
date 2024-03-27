@@ -21,9 +21,15 @@ class Background(models.Model):
         return f"background: {self.primary_bg};"
 
     def __str__(self) -> str:
-        return self.name
+        """
+        Returns the name as string conversion.
+        """
+        return str(self.name)
 
     def __repr__(self) -> str:
+        """
+        Returns the type and the name as representation.
+        """
         return f"Background: {self.name}"
 
 
@@ -33,7 +39,7 @@ class Theme(models.Model):
     """
 
     name = models.CharField(max_length=50)
-    background = models.ForeignKey(Background, on_delete=models.CASCADE)
+    background: Background = models.ForeignKey(Background, on_delete=models.CASCADE)
 
     @property
     def path(self) -> str:
