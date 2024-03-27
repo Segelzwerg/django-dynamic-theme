@@ -57,7 +57,7 @@ jobs:
               if: ${{ steps.license-check.outputs.UNKNOW_PACKAGES != '' }}
               with:
                 script: |
-                    const unknown =  ${{ steps.license-check.outputs.UNKNOWN_PACKAGES > 0}};
+                    const unknown =  ${{ steps.license-check.outputs.UNKNOWN_PACKAGES }};
                     if (unknown > 0) {
                         core.setFailed('${unknown} unknown packages found.');
                     }
