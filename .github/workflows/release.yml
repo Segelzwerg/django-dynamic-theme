@@ -6,18 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  pypi-publish:
+    name: upload release to PyPI
     runs-on: ubuntu-latest
-
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: release
+    permissions:
+      # IMPORTANT: this permission is mandatory for trusted publishing
+      id-token: write
     steps:
-      - uses: Whist-Team/actions/setup-poetry@v2
-        with:
-          python-version: 3.12
+      # retrieve your distributions here
 
-      - name: Build project
-        run: poetry build
-
-      - name: Publish to PyPI
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
-        run: poetry publish
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
