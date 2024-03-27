@@ -38,6 +38,7 @@ jobs:
             - name: Check Licenses
               shell: bash
               id: license-check
-              run: echo "AUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check authorized packages")" >> "$GITHUB_OUTPUT"
-              run: echo "UNKNOW_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unknown packages")" >> "$GITHUB_OUTPUT"
-              run: echo "UNAUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unauthorized packages")" >> "$GITHUB_OUTPUT"
+              run: |
+                echo "AUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check authorized packages")" >> "$GITHUB_OUTPUT"
+                echo "UNKNOW_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unknown packages")" >> "$GITHUB_OUTPUT"
+                echo "UNAUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unauthorized packages")" >> "$GITHUB_OUTPUT"
