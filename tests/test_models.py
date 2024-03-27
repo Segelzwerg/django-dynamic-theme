@@ -1,5 +1,4 @@
-from os import mkdir, path, remove, rmdir
-from shutil import rmtree
+from os import mkdir, path, remove
 from django_dynamic_theme.models import Background, Theme
 
 
