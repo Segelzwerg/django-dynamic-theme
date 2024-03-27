@@ -8,7 +8,7 @@ class ThemeModelTest(TestCase):
     def test_export(self):
         color: str = "F0F0F0"
         background = Background.objects.create(primary_bg=color)
-        theme = Theme.objects.create(background=background)
+        theme = Theme.objects.create(name="theme", background=background)
         expected_string = "body {background: F0F0F0;}"
         self.assertEqual(expected_string, theme.export())
 
