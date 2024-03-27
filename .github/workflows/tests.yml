@@ -1,4 +1,4 @@
-name: Django CI
+name: Tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     strategy:
@@ -41,4 +41,4 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-          poetry run coverage run manage.py test
+          poetry run coverage run runtest.py
