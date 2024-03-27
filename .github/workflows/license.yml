@@ -37,10 +37,4 @@ jobs:
 
             - name: Export Licenses
               shell: bash
-              run: |
-                EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-                {
-                    echo 'LICENSE<<$EOF'
-                    liccheck -s .liccheck.ini -r requirements.txt
-                    echo $EOF
-                } >> "$GITHUB_OUTPUT"
+              run: echo "LICENSE=$(liccheck -s .liccheck.ini -r requirements.txt)" >> "$GITHUB_OUTPUT"
