@@ -60,6 +60,6 @@ jobs:
               with:
                 script: |
                   core.info(`Found unknown packages: ${{steps.license-check.outputs.UNKNOW_PACKAGES}}`)
-                  if (process.env.UNKNOWN > 0) {
+                  if (${{steps.license-check.outputs.UNKNOW_PACKAGES}} > 0) {
                       core.warning('${unknown} unknown packages found.');
                   }
