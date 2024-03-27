@@ -41,4 +41,9 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-          poetry run coverage run runtest.py
+          poetry run coverage json runtest.py
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: Segelzwerg/django-dynamic-theme
