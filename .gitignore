@@ -165,3 +165,5 @@ cython_debug/
 /.dev.env
 /media/
 /static/CACHE/
+license_report.txt
+requirements.txt
