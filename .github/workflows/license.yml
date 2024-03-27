@@ -48,11 +48,11 @@ jobs:
               if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES >= 0}}
               with:
                 script: |
-                    core.setFailed('Unauthorized packages found.')
+                    core.setFailed('${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} Unknown packages found.')
 
             - name: License Unknown
               uses: actions/github-script@v3
               if: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES >= 0}}
               with:
                 script: |
-                    core.setFailed('Unauthorized packages found.')
+                    core.setFailed('${{ steps.license-check.outputs.UNKNOWN_PACKAGES }} unknown packages found.')
