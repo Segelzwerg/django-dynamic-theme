@@ -30,3 +30,16 @@ jobs:
             - name: Install dependencies
               shell: bash
               run: poetry install --no-interaction
+
+            - name: Freeze Dependencies
+              shell: bash
+              run: poetry export --without-hashes --format=requirements.txt > requirements.txt
+
+            - name: Export Licenses
+              shell: bash
+              run: |
+                {
+                echo 'LICENSE<<EOF'
+                liccheck -s .liccheck.ini -r requirements.txt
+                echo EOF
+                } >> "$GITHUB_OUTPUT"
