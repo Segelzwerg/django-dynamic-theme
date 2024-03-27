@@ -42,3 +42,17 @@ jobs:
                 echo "AUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check authorized packages" | grep -vE "packages...")" >> "$GITHUB_OUTPUT"
                 echo "UNKNOW_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unknown package"s | grep -vE "packages...")" >> "$GITHUB_OUTPUT"
                 echo "UNAUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unauthorized packages" | grep -vE "packages...")" >> "$GITHUB_OUTPUT"
+
+            - name: License Unauthorized
+              uses: actions/github-script@v3
+              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES != ''}}
+              with:
+                script: |
+                    core.setFailed('Unauthorized packages found.')
+
+            - name: License Unknown
+              uses: actions/github-script@v3
+              if: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES != ''}}
+              with:
+                script: |
+                    core.setFailed('Unauthorized packages found.')
