@@ -43,14 +43,19 @@ jobs:
 
             - name: License Unauthorized
               uses: actions/github-script@v3
-              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES > 0}}
               with:
                 script: |
-                    core.setFailed('${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} unauthorized packages found.')
+                    const unauthorized = ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }}
+                    if (unauthorized > 0) {
+                        core.setFailed('${unauthorized} unauthorized packages found.')
+                    }
+
 
             - name: License Unknown
               uses: actions/github-script@v3
-              if: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES > 0}}
               with:
                 script: |
-                    core.setFailed('${{ steps.license-check.outputs.UNKNOWN_PACKAGES }} unknown packages found.')
+                    const unknown =  ${{ steps.license-check.outputs.UNKNOWN_PACKAGES > 0}}
+                    if (unknown > 0) {
+                        core.setFailed('${{ steps.license-check.outputs.UNKNOWN_PACKAGES }} unknown packages found.')
+                    }
