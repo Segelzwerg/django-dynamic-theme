@@ -46,7 +46,7 @@ jobs:
               if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES != '' }}
               with:
                 script: |
-                    const unauthorized = ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }};
+                    const unauthorized = '${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }}';
                     if (unauthorized > 0) {
                         core.setFailed('${unauthorized} unauthorized packages found.');
                     }
@@ -57,7 +57,7 @@ jobs:
               if: ${{ steps.license-check.outputs.UNKNOW_PACKAGES != '' }}
               with:
                 script: |
-                    const unknown =  ${{ steps.license-check.outputs.UNKNOWN_PACKAGES }};
+                    const unknown =  '${{ steps.license-check.outputs.UNKNOWN_PACKAGES }}';
                     if (unknown > 0) {
                         core.setFailed('${unknown} unknown packages found.');
                     }
