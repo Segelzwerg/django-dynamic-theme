@@ -10,5 +10,7 @@ class ScssEditorTest(TestCase):
         editor = ScssEditor("static/theme.scss")
         editor.write("test")
         file = open_mock.return_value
-        open_mock.assert_called_once_with("static/theme.scss", mode="w")
+        open_mock.assert_called_once_with(
+            "static/theme.scss", mode="w", encoding="UTF-8"
+        )
         file.write.assert_called_once_with("test")
