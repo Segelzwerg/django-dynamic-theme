@@ -46,9 +46,8 @@ jobs:
               if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES != '' }}
               with:
                 script: |
-                  const unauthorized = '${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }}';
-                  if (unauthorized > 0) {
-                      core.setFailed('${unauthorized} unauthorized packages found.');
+                  if (${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} > 0) {
+                      core.setFailed('${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} unauthorized packages found.');
                   }
 
 
