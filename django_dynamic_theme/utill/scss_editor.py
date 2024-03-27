@@ -1,6 +1,7 @@
 """Writes SCSS configuration to a file."""
 
 
+# pylint: disable=too-few-public-methods
 class ScssEditor:
     """
     Handler for each of the themes created.
@@ -18,5 +19,5 @@ class ScssEditor:
         Writes the content to a scss file.
         :param: output: the SCSS configuration.
         """
-        with open(self._file, mode="w") as file:
+        with open(self._file, mode="w", encoding="UTF-8") as file:
             file.write(output)
