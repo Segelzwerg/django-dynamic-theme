@@ -31,6 +31,10 @@ jobs:
               shell: bash
               run: poetry install --no-interaction
 
+            - name: Liccheck install
+              shell: bash
+              run: poetry add --group=dev --no-interaction liccheck
+
             - name: Freeze Dependencies
               shell: bash
               run: poetry export --without-hashes --format=requirements.txt > requirements.txt
