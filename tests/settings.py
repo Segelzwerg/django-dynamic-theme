@@ -7,7 +7,7 @@ SECRET_KEY = "django-dynamic-theme"
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
-INSTALLED_APPS = ["tests", "django-dynamic-theme"]
+INSTALLED_APPS = ["tests", "django_dynamic_theme"]
 
 INSTALLED_APPS += [
     "django.contrib.admin",
