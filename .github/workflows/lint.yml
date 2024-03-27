@@ -19,7 +19,7 @@ jobs:
         run: poetry run flake8 django_dynamic_theme tests --count --show-source --statistics
 
       - name: Lint sources with pylint
-        run: poetry run pylint --load-plugins=pylint_django django_dynamic_theme
+        run: poetry run pylint django_dynamic_theme
 
   security:
     runs-on: ubuntu-latest
