@@ -35,6 +35,7 @@ jobs:
               shell: bash
               run: poetry export --without-hashes --format=requirements.txt > requirements.txt
 
-            - name: Export Licenses
+            - name: Check Licenses
               shell: bash
+              id: license-check
               run: echo "LICENSE=$(liccheck -s .liccheck.ini -r requirements.txt)" >> "$GITHUB_OUTPUT"
