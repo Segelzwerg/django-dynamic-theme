@@ -42,7 +42,6 @@ jobs:
                 AUTHORIZED=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check authorized packages" | grep -vE "packages..." | grep -oP "^\S+")
                 UNKNOWN=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unknown package"s | grep -vE "packages..." | grep -oP "^\S+")
                 UNAUTHORIZED=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unauthorized packages" | grep -vE "packages..." | grep -oP "^\S+")
-
                 echo "AUTHORIZED_PACKAGES=$AUTHORIZED" >> $GITHUB_OUTPUT
                 echo "UNKNOW_PACKAGES=$UNKNOWN" >> $GITHUB_OUTPUT
                 echo "UNAUTHORIZED_PACKAGES=$UNAUTHORIZED" >> $GITHUB_OUTPUT
