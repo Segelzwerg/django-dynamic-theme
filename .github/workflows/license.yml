@@ -54,6 +54,7 @@ jobs:
 
             - name: License Unknown
               uses: actions/github-script@v3
+              if: ${{ steps.license-check.outputs.UNKNOW_PACKAGES != '' }}
               with:
                 script: |
                     const unknown =  ${{ steps.license-check.outputs.UNKNOWN_PACKAGES > 0}};
