@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "lh-django"
-version = "0.1.0"
+name = "django-dynamic-theme"
+version = "0.0.1"
 description = ""
 authors = ["Segelzwerg <25705862+Segelzwerg@users.noreply.github.com>"]
 readme = "README.md"
