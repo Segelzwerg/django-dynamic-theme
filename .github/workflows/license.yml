@@ -44,29 +44,19 @@ jobs:
                 UNAUTHORIZED=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unauthorized packages" | grep -vE "packages..." | grep -oP "^\S+")
 
                 echo "AUTHORIZED_PACKAGES=$AUTHORIZED" >> $GITHUB_OUTPUT
-                if [[ $UNKNOWN -gt 0 ]]
-                then
-                    echo "UNKNOW_PACKAGES=$UNKNOWN" >> $GITHUB_OUTPUT
-                else
-                    echo "UNKNOW_PACKAGES=0" >> $GITHUB_OUTPUT
-                fi
-                if [[ $UNAUTHORIZED -gt 0 ]]
-                then
-                    echo "UNAUTHORIZED_PACKAGES=$UNAUTHORIZED" >> $GITHUB_OUTPUT
-                else
-                    echo "UNAUTHORIZED_PACKAGES=0" >> $GITHUB_OUTPUT
-                fi
+                echo "UNKNOW_PACKAGES=$UNKNOWN" >> $GITHUB_OUTPUT
+                echo "UNAUTHORIZED_PACKAGES=$UNAUTHORIZED" >> $GITHUB_OUTPUT
 
             - name: License Unauthorized
               uses: actions/github-script@v3
-              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES >= 0}}
+              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES > 0}}
               with:
                 script: |
                     core.setFailed('${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} unauthorized packages found.')
 
             - name: License Unknown
               uses: actions/github-script@v3
-              if: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES >= 0}}
+              if: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES > 0}}
               with:
                 script: |
                     core.setFailed('${{ steps.license-check.outputs.UNKNOWN_PACKAGES }} unknown packages found.')
