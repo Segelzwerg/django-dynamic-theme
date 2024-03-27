@@ -7,18 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('theme', '0004_alter_background_primary_bg_theme'),
+        ("django_dynamic_theme", "0004_alter_background_primary_bg_theme"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='theme',
-            name='background',
+            model_name="theme",
+            name="background",
         ),
         migrations.AddField(
-            model_name='theme',
-            name='background',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='theme.background'),
+            model_name="theme",
+            name="background",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="django_dynamic_theme.background",
+            ),
             preserve_default=False,
         ),
     ]

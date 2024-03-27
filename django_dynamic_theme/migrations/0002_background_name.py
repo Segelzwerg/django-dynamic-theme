@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('theme', '0001_initial'),
+        ("django_dynamic_theme", "0001_initial"),
     ]
 
     operations = [
