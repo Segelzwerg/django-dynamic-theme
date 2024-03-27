@@ -1,0 +1,63 @@
+name: License Checker
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "3.12"
+            - name: Install poetry
+              uses: snok/install-poetry@v1
+              with:
+                virtualenvs-create: true
+                virtualenvs-in-project: true
+
+            - name: Load cached venv
+              uses: actions/cache@v4
+              with:
+                path: .venv
+                key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+            - name: Install dependencies
+              shell: bash
+              run: poetry install --no-interaction
+
+            - name: Freeze Dependencies
+              run: poetry export --without-hashes --format=requirements.txt > requirements.txt
+
+            - name: Check Licenses
+              id: license-check
+              run: |
+                echo "AUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check authorized packages" | grep -vE "packages..." | grep -oP "^\S+")" >> "$GITHUB_OUTPUT"
+                echo "UNKNOW_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unknown packages" | grep -vE "packages..." | grep -oP "^\S+")" >> "$GITHUB_OUTPUT"
+                echo "UNAUTHORIZED_PACKAGES=$(poetry run liccheck -s .liccheck.ini -r requirements.txt | grep -A 1 "check unauthorized packages" | grep -vE "packages..." | grep -oP "^\S+")" >> "$GITHUB_OUTPUT"
+
+            - name: License Unauthorized
+              uses: actions/github-script@v7
+              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES != '' }}
+              with:
+                script: |
+                  if (${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} > 0) {
+                      core.setFailed('${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }} unauthorized packages found.');
+                  }
+
+
+            - name: License Unknown
+              uses: actions/github-script@v7
+              if: ${{ steps.license-check.outputs.UNKNOW_PACKAGES != '' }}
+              env:
+                UNKNOWN: ${{ steps.license-check.outputs.UNKNOWN_PACKAGES }}
+              with:
+                script: |
+                  if (${{steps.license-check.outputs.UNKNOW_PACKAGES}} > 0) {
+                      core.warning('${{steps.license-check.outputs.UNKNOW_PACKAGES}} unknown packages found.');
+                  }
