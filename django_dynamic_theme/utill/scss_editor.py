@@ -1,6 +1,7 @@
 """Writes SCSS configuration to a file."""
 
 
+# pylint: disable=too-few-public-methods
 class ScssEditor:
     """
     Handler for each of the themes created.
