@@ -52,7 +52,7 @@ class Theme(models.Model):
         """
         Exports all listed configurations as string in SCSS format.
         """
-        return f"body {{{self.background.export()}}}"
+        return f"body {{{self.background.export()}}}"  # pylint: disable=no-member
 
     def save(self, *args, **kwargs) -> None:
         """
