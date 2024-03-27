@@ -43,7 +43,7 @@ jobs:
 
             - name: License Unauthorized
               uses: actions/github-script@v3
-              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES}} != ''
+              if: ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES != '' }}
               with:
                 script: |
                     const unauthorized = ${{ steps.license-check.outputs.UNAUTHORIZED_PACKAGES }};
