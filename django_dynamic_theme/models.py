@@ -38,7 +38,6 @@ class Theme(models.Model):
     Combines all values.
     """
 
-    # TODO: can be selected field
     name = models.CharField(max_length=50)
     default = models.BooleanField(default=False)
     background: Background = models.ForeignKey(Background, on_delete=models.CASCADE)
