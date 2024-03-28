@@ -49,7 +49,7 @@ class ThemeElement(models.Model, metaclass=AbstractModelMeta):
         """
         Returns the type and the name as representation.
         """
-        return f"{self.__class__.name}: {self.name}"
+        return f"{self.__class__.__name__}: {self.name}"
 
 
 class Background(ThemeElement):
