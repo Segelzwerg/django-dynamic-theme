@@ -1,12 +1,40 @@
 """Admins modles for Theme."""
 
+from abc import ABCMeta
 from colorfield.fields import ColorField
 from django.db import models
+
 
 from django_dynamic_theme.utill.scss_editor import ScssEditor
 
 
-class Background(models.Model):
+class AbstractModelMeta(ABCMeta, type(models.Model)):
+    """Abstract class for the meta to avoid metaclass exception"""
+
+    pass
+
+
+class ThemeElement(models.Model, metaclass=AbstractModelMeta):
+    """Abstract class for theme elements."""
+
+    class Meta:
+        abstract = True
+
+    def export(self) -> str:
+        pass
+
+    def save(self, *args, **kwargs) -> None:
+        """
+        Saves the ThemeElement object and
+        triggers the themes to write it's content to the SCSS file.
+        """
+        super().save(*args, **kwargs)
+        themes = self.theme_set.all()
+        for theme in themes:
+            theme.export()
+
+
+class Background(ThemeElement):
     """
     Stores the background colors.
     """
