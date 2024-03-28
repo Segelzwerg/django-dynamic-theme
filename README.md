@@ -12,7 +12,7 @@ pip install django-dynamic-theme
 ## Quickstart
 
 1. Add `django-dynamic-theme` to your INSTALLED_APPS:
-2. 
+
 ```python
 INSTALLED_APPS = [
   ...,
