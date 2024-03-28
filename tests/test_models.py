@@ -61,8 +61,17 @@ class ThemeModelTest(TestCase):
 
 
 class BackgroundModelTest(TestCase):
+    def setUp(self) -> None:
+        super().setUp()
+        self.color: str = "F0F0F0"
+
     def test_export(self):
-        color: str = "F0F0F0"
-        background = Background(primary_bg=color)
-        expected_string = f"background: {color};"
+        background = Background(primary_bg=self.color)
+        expected_string = f"background: {self.color};"
         self.assertEqual(expected_string, background.export())
+
+    def test_save_if_not_attached_to_theme(self):
+        background = Background.objects.create(primary_bg=self.color)
+        background.primary_bg = "654987"
+        background.save()
+        self.assertEqual(background, Background.objects.first())
