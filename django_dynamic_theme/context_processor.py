@@ -3,7 +3,8 @@
 from django_dynamic_theme.models import Theme
 
 
-def theme(request) -> dict[str, str]:
+# pylint: disable=no-member
+def theme(_) -> dict[str, str]:
     """
     Defines the url to the theme to be used.
     Returns: url to theme in a dict.
