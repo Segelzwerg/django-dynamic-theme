@@ -75,3 +75,7 @@ class BackgroundModelTest(TestCase):
         background.primary_bg = "654987"
         background.save()
         self.assertEqual(background, Background.objects.first())
+
+    def test_repr(self):
+        background = Background(name="dark", primary_bg=self.color)
+        self.assertEqual(f"Background: {background.name}", repr(background))
