@@ -1,6 +1,6 @@
 """Admins modles for Theme."""
 
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 from colorfield.fields import ColorField
 from django.db import models
 
@@ -11,17 +11,23 @@ from django_dynamic_theme.utill.scss_editor import ScssEditor
 class AbstractModelMeta(ABCMeta, type(models.Model)):
     """Abstract class for the meta to avoid metaclass exception"""
 
-    pass
-
 
 class ThemeElement(models.Model, metaclass=AbstractModelMeta):
     """Abstract class for theme elements."""
 
+    name = models.CharField(max_length=50)
+
+    # pylint: disable=too-few-public-methods
     class Meta:
+        """Meta class for ThemeElement"""
+
         abstract = True
 
+    @abstractmethod
     def export(self) -> str:
-        pass
+        """
+        Exports the key value pairs as string.
+        """
 
     def save(self, *args, **kwargs) -> None:
         """
@@ -29,24 +35,9 @@ class ThemeElement(models.Model, metaclass=AbstractModelMeta):
         triggers the themes to write it's content to the SCSS file.
         """
         super().save(*args, **kwargs)
-        themes = self.theme_set.all()
+        themes = self.theme_set.all()  # pylint: disable=no-member
         for theme in themes:
             theme.write_export()
-
-
-class Background(ThemeElement):
-    """
-    Stores the background colors.
-    """
-
-    name = models.CharField(max_length=50)
-    primary_bg = ColorField(verbose_name="Primary Name")
-
-    def export(self) -> str:
-        """
-        Exports it's values as string in SCSS format.
-        """
-        return f"background: {self.primary_bg};"
 
     def __str__(self) -> str:
         """
@@ -58,7 +49,21 @@ class Background(ThemeElement):
         """
         Returns the type and the name as representation.
         """
-        return f"Background: {self.name}"
+        return f"{self.__class__.name}: {self.name}"
+
+
+class Background(ThemeElement):
+    """
+    Stores the background colors.
+    """
+
+    primary_bg = ColorField(verbose_name="Primary Name")
+
+    def export(self) -> str:
+        """
+        Exports it's values as string in SCSS format.
+        """
+        return f"background: {self.primary_bg};"
 
 
 class Theme(models.Model):
