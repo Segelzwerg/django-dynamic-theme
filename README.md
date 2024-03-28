@@ -31,6 +31,14 @@ STATICFILES_FINDERS = [
     "compressor.finders.CompressorFinder",
 ]
 COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
+TEMPLATES = {
+  "OPTIONS": {
+    "context_processors": [
+      ...,
+      "django_dynamic_theme-context_processor.theme",
+    ]
+  }
+}
 ```
 2. Run `python manage.py migrate`
 
