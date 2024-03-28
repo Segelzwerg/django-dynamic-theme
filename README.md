@@ -2,3 +2,46 @@
 
 
 [![codecov](https://codecov.io/gh/Segelzwerg/django-dynamic-theme/graph/badge.svg?token=YBTYAESSWE)](https://codecov.io/gh/Segelzwerg/django-dynamic-theme)
+
+# Django Dynamic Theme
+This allows an administrator of a django website to change the theme on the fly.
+
+## Installation
+
+```sh
+pip install django-dynamic-theme
+```
+
+## Quickstart
+
+1. Add  the following settings::
+
+```python
+INSTALLED_APPS = [
+  ...,
+  "django_dynamic_theme",
+  "compressor",
+]
+...
+# Default setting but you can set it to some other path.
+static_url = "static/"
+static_root = "static"
+STATICFILES_FINDERS = [
+    ...,
+    "compressor.finders.CompressorFinder",
+]
+COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
+```
+2. Assuming you are using [Bootstrap 5](https://github.com/zostera/django-bootstrap5) you also need to add:
+```python
+INSTALLED_APPS = [
+  ....
+  "django_bootstrap5",
+
+BOOSTRAP5 = {
+    "theme_url": "static/theme.css",
+}
+```
+2. Run `python manage.py migrate`
+
+3. Visit `http://127.0.0.1:8000/admin/django_dynamic_theme/` to start customizing your theme.
