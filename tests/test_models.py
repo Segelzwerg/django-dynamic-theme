@@ -13,7 +13,7 @@ class ThemeModelTest(TestCase):
         self.folder = "static/"
         self.file_path = f"{self.folder}/{self.theme_name}.scss"
         self.color: str = "F0F0F0"
-        self.background = Background.objects.create(primary_bg=self.color)
+        self.background: Background = Background.objects.create(primary_bg=self.color)
         if not path.exists(self.folder):
             mkdir(self.folder)
         _ = open(self.file_path, mode="w+")
@@ -37,7 +37,10 @@ class ThemeModelTest(TestCase):
 
     def test_export_if_background_is_changed(self):
         theme = Theme.objects.create(name=self.theme_name, background=self.background)
-        expected_string = f"body {{background: {self.color};}}"
+        new_color = "123456"
+        self.background.color = new_color
+        self.background.save()
+        expected_string = f"body {{background: {new_color};}}"
         self.assertEqual(expected_string, theme.export())
 
     def test_theme_default_uniqueness(self):
