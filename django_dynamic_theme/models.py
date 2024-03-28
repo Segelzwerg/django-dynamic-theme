@@ -38,8 +38,19 @@ class Theme(models.Model):
     Combines all values.
     """
 
+    # TODO: can be selected field
     name = models.CharField(max_length=50)
+    default = models.BooleanField(default=False)
     background: Background = models.ForeignKey(Background, on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["default"],
+                condition=models.Q(default=True),
+                name="Only one theme can be default.",
+            )
+        ]
 
     @property
     def path(self) -> str:
