@@ -41,8 +41,14 @@ class ThemeModelTest(TestCase):
         self.background.primary_bg = new_color
         self.background.save()
         expected_string = f"body {{background: {new_color};}}"
-        self.assertEqual(new_color, theme.background.primary_bg)
         self.assertEqual(expected_string, theme.export())
+
+    def test_updated_if_element_saved(self):
+        theme = Theme.objects.create(name=self.theme_name, background=self.background)
+        new_color = "123456"
+        self.background.primary_bg = new_color
+        self.background.save()
+        self.assertEqual(new_color, theme.background.primary_bg)
 
     def test_theme_default_uniqueness(self):
         _ = Theme.objects.create(
