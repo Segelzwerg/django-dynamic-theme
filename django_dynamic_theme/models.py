@@ -31,7 +31,7 @@ class ThemeElement(models.Model, metaclass=AbstractModelMeta):
         super().save(*args, **kwargs)
         themes = self.theme_set.all()
         for theme in themes:
-            theme.export()
+            theme.write_export()
 
 
 class Background(ThemeElement):
@@ -95,10 +95,14 @@ class Theme(models.Model):
         """
         return f"body {{{self.background.export()}}}"  # pylint: disable=no-member
 
+    def write_export(self) -> None:
+        """Writes the content of the export to the file."""
+        scss_editor = ScssEditor(self.path)
+        scss_editor.write(self.export())
+
     def save(self, *args, **kwargs) -> None:
         """
         Saves the Theme object and writes it's content to the SCSS file.
         """
         super().save(*args, **kwargs)
-        scss_editor = ScssEditor(self.path)
-        scss_editor.write(self.export())
+        self.write_export()
