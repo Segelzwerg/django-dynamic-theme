@@ -8,7 +8,7 @@ def theme(request) -> dict[str, str]:
     Defines the url to the theme to be used.
     Returns: url to theme in a dict.
     """
-    # TODO: add user specific theme / admin defined default
+
     try:
         admin_default: Theme = Theme.objects.get(default=True)
         return {"theme_file": f"{admin_default.name}.scss"}
