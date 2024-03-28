@@ -196,20 +196,6 @@ files = [
 django = "*"
 
 [[package]]
-name = "django-bootstrap5"
-version = "23.4"
-description = "Bootstrap 5 for Django"
-optional = false
-python-versions = ">=3.8"
-files = [
-    {file = "django-bootstrap5-23.4.tar.gz", hash = "sha256:fbf9942a17e1f48b4142e78df9e85afb65e4066a20e38ec7c497d36ae5ef7256"},
-    {file = "django_bootstrap5-23.4-py3-none-any.whl", hash = "sha256:5181bf1e97afae6211e963f28f48d4a90c937a3b036b3f752f52260f0029f3bc"},
-]
-
-[package.dependencies]
-Django = ">=3.2"
-
-[[package]]
 name = "django-colorfield"
 version = "0.11.0"
 description = "color field for django models with a nice color-picker in the admin."
@@ -942,4 +928,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "83ebc075ae1e0dd0f3a179e7635499d500843f07b7700b115919c1e989f53953"
+content-hash = "a15e8252c9f74f815a7618f8fc22e9cfb2196345e9e3c4cc155b855bbc5c1cb5"
