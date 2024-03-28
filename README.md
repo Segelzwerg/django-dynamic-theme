@@ -31,17 +31,27 @@ STATICFILES_FINDERS = [
     "compressor.finders.CompressorFinder",
 ]
 COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
-```
-2. Assuming you are using [Bootstrap 5](https://github.com/zostera/django-bootstrap5) you also need to add:
-```python
-INSTALLED_APPS = [
-  ....
-  "django_bootstrap5",
-
-BOOSTRAP5 = {
-    "theme_url": "static/theme.css",
+TEMPLATES = {
+  "OPTIONS": {
+    "context_processors": [
+      ...,
+      "django_dynamic_theme-context_processor.theme",
+    ]
+  }
 }
 ```
 2. Run `python manage.py migrate`
+
+3. Assuming you have `base.html` add this to it before the `<body>` tag:
+```html
+<html>
+  ...
+  {% load compress %}
+  {% load static %}
+  {% compress css %}
+  <link type="text/x-scss" rel="stylesheet" href="{% static 'theme.scss' %}" />
+  ...
+</html>
+```
 
 3. Visit `http://127.0.0.1:8000/admin/django_dynamic_theme/` to start customizing your theme.
