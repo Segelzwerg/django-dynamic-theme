@@ -10,6 +10,8 @@ Welcome to Django Dynamic Theme's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   autoapi/django_dynamic_theme/index.rst
+
 
 
 Indices and tables
