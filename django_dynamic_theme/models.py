@@ -1,7 +1,9 @@
 """Admins modles for Theme."""
 
 from abc import ABCMeta, abstractmethod
+import json
 from colorfield.fields import ColorField
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -66,6 +68,20 @@ class Background(ThemeElement):
         return f"background: {self.primary_bg};"
 
 
+class Navbar(ThemeElement):
+    """Stores the theming of bootstrap 5 nav bar"""
+
+    background_color = ColorField()
+    opacity = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(1)],
+    )
+
+    def export(self) -> str:
+        return json.dumps({self})
+
+
 class Theme(models.Model):
     """
     Combines all values.
@@ -74,6 +90,9 @@ class Theme(models.Model):
     name = models.CharField(max_length=50)
     default = models.BooleanField(default=False)
     background: Background = models.ForeignKey(Background, on_delete=models.CASCADE)
+    navbar: Navbar = models.ForeignKey(
+        Navbar, default=None, null=True, on_delete=models.CASCADE
+    )
 
     # pylint: disable=too-few-public-methods
     class Meta:
