@@ -7,8 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "Django Dynamic Theme"
-copyright = "2024, Marcel haas"
-author = "Marcel haas"
+copyright = "2024, Marcel Haas"
+author = "Marcel Haas"
 release = "0.0.2"
 
 # -- General configuration ---------------------------------------------------
@@ -17,7 +17,7 @@ release = "0.0.2"
 extensions = []
 
 templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
