@@ -59,6 +59,13 @@ class ThemeModelTest(TestCase):
                 name="Second", default=True, background=self.background
             )
 
+    def test_background_not_deleted_after_theme_deletion(self):
+        theme = Theme.objects.create(name=self.theme_name, background=self.background)
+        theme.delete()
+        background_fetched = Background.objects.first()
+        self.assertIsNotNone(background_fetched)
+        self.assertEqual(self.background, background_fetched)
+
 
 class BackgroundModelTest(TestCase):
     def setUp(self) -> None:
