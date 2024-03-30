@@ -98,16 +98,22 @@ class NavbarTest(TestCase):
 
     def test_opacity_min_value(self):
         navbar = Navbar.objects.create(
-            name=self.name, background_color=self.color, opacity=-1
+            name=self.name, background_color=self.color, opacity=Decimal(-1)
         )
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(
+            ValidationError,
+            "{'opacity': ['Ensure this value is greater than or equal to 0.']}",
+        ):
             navbar.clean_fields()
 
     def test_opacity_max_value(self):
         navbar = Navbar.objects.create(
-            name=self.name, background_color=self.color, opacity=1.1
+            name=self.name, background_color=self.color, opacity=Decimal(1.5)
         )
-        with self.assertRaises(ValidationError):
+        with self.assertRaisesMessage(
+            ValidationError,
+            "{'opacity': ['Ensure this value is less than or equal to 1.']}",
+        ):
             navbar.clean_fields()
 
     def test_opacity_valid_value(self):
