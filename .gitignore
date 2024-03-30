@@ -168,3 +168,5 @@ cython_debug/
 license_report.txt
 requirements.txt
 static/
+docs/_static/
+docs/_templates/
