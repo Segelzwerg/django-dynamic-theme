@@ -1,7 +1,9 @@
+from decimal import Decimal
 from os import mkdir, path, remove
 
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django_dynamic_theme.models import Background, Theme
+from django_dynamic_theme.models import Background, Navbar, Theme
 
 from django.test import TestCase
 
@@ -86,3 +88,31 @@ class BackgroundModelTest(TestCase):
     def test_repr(self):
         background = Background(name="dark", primary_bg=self.color)
         self.assertEqual(f"Background: {background.name}", repr(background))
+
+
+class NavbarTest(TestCase):
+    def setUp(self) -> None:
+        super().setUp()
+        self.color = "#101010"
+        self.name = "Binary"
+
+    def test_opacity_min_value(self):
+        navbar = Navbar.objects.create(
+            name=self.name, background_color=self.color, opacity=-1
+        )
+        with self.assertRaises(ValidationError):
+            navbar.clean_fields()
+
+    def test_opacity_max_value(self):
+        navbar = Navbar.objects.create(
+            name=self.name, background_color=self.color, opacity=1.1
+        )
+        with self.assertRaises(ValidationError):
+            navbar.clean_fields()
+
+    def test_opacity_valid_value(self):
+        navbar = Navbar.objects.create(
+            name=self.name, background_color=self.color, opacity=Decimal(0.5)
+        )
+        navbar.clean_fields()
+        self.assertEqual(0.5, navbar.opacity)
