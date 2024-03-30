@@ -15,4 +15,4 @@ class DjangoDynamicThemeConfig(AppConfig):
         """
         Imports the signals to the app configuration.
         """
-        import django_dynamic_theme.signals  # noqa F401 imports not being used
+        import django_dynamic_theme.signals  # noqa F401 imports not being used pylint: disable=C0415,W0611
