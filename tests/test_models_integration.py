@@ -31,3 +31,10 @@ class BackgroundIntegrationTest(TestCase):
             expected_string = f"body {{background: {new_color};}}"
             self.assertEqual(expected_string, exported_string)
         self.assertEqual(new_color, theme.background.primary_bg)
+
+    def test_file_deleted_after_theme_deletion(self):
+        theme = Theme.objects.create(name=self.theme_name, background=self.background)
+        theme.delete()
+        with self.assertRaises(Theme.DoesNotExist):
+            _ = Theme.objects.get(name=self.theme_name)
+        self.assertFalse(path.exists(self.file_path))
