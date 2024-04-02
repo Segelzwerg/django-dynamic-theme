@@ -49,7 +49,7 @@ TEMPLATES = {
   {% load compress %}
   {% load static %}
   {% compress css %}
-  <link type="text/x-scss" rel="stylesheet" href="{% static 'theme.scss' %}" />
+  <link type="text/x-scss" rel="stylesheet" href="{% static theme_file %}" />
   ...
 </html>
 ```
