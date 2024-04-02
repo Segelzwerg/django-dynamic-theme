@@ -13,7 +13,8 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [ 3.12 ]
+        python-version: [ 3.11, 3.12 ]
+        django-version: [4.2, 5.0]
 
     steps:
       - uses: actions/checkout@v4
@@ -34,8 +35,10 @@ jobs:
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
-        shell: bash
         run: poetry install --no-interaction
+
+      - name: Install specific Django version
+        run: poetry add django==${{ matrix.django-version }}
 
       - name: Run Tests
         env:
