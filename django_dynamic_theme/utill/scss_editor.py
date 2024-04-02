@@ -1,7 +1,9 @@
 """Writes SCSS configuration to a file."""
 
-
 # pylint: disable=too-few-public-methods
+from os import remove
+
+
 class ScssEditor:
     """
     Handler for each of the themes created.
@@ -17,7 +19,13 @@ class ScssEditor:
     def write(self, output: str) -> None:
         """
         Writes the content to a scss file.
-        :param: output: the SCSS configuration.
+        :param output: the SCSS configuration.
         """
         with open(self._file, mode="w", encoding="UTF-8") as file:
             file.write(output)
+
+    def delete(self) -> None:
+        """
+        Delete the corresponding theme file.
+        """
+        remove(self._file)

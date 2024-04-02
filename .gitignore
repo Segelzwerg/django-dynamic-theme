@@ -167,3 +167,6 @@ cython_debug/
 /static/CACHE/
 license_report.txt
 requirements.txt
+static/
+docs/_static/
+docs/_templates/
