@@ -21,7 +21,7 @@ class ScssEditor:
         Writes the content to a scss file.
         :param output: the SCSS configuration.
         """
-        with open(self._file, mode="w", encoding="UTF-8") as file:
+        with open(self._file, mode="w+", encoding="UTF-8") as file:
             file.write(output)
 
     def delete(self) -> None:
