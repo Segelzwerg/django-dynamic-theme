@@ -14,7 +14,7 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [ 3.11, 3.12 ]
-        django-version: [4.2, 5.0]
+        django-version: [4.2, 5.0.3 ]
 
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-          poetry run coverage json runtest.py
+          poetry run coverage run runtest.py
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.2.0
         with:
