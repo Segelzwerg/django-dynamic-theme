@@ -170,3 +170,5 @@ requirements.txt
 static/
 docs/_static/
 docs/_templates/
+coverage.json
+
