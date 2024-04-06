@@ -10,7 +10,7 @@ from django_dynamic_theme.utill.color_converter import hex_to_tuple
 from django_dynamic_theme.utill.scss_editor import ScssEditor
 
 
-# pylint: disable: too-many-ancestors
+# pylint: disable=too-many-ancestors
 class FontSizeChoice(models.TextChoices):
     """
     List of pre defined css font sizes.
