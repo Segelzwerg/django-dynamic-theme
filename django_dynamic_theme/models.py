@@ -96,6 +96,13 @@ class Navbar(ThemeElement):
     font_size = models.CharField(
         max_length=20, choices=FontSizeChoice.choices, default=FontSizeChoice.MEDIUM
     )
+    text_color = ColorField()
+    text_opacity = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        validators=[MinValueValidator(0), MaxValueValidator(1)],
+        default=1,
+    )
 
     def export(self) -> str:
         """
@@ -105,7 +112,8 @@ class Navbar(ThemeElement):
         navbar = (
             f".navbar {{background-color: rgba({bg_color},{self.opacity}) !important;}}"
         )
-        navlink = f".nav-link {{font-size:{self.font_size};}}"
+        text_color = ",".join(hex_to_tuple(self.text_color)) + f",{self.text_opacity}"
+        navlink = f".nav-link {{font-size:{self.font_size};color:rgba({text_color});}}"
         return f"{navbar}\n{navlink}"
 
 

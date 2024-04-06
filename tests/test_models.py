@@ -129,8 +129,10 @@ class NavbarTest(TestCase):
             background_color=self.color,
             opacity=Decimal(0.5),
             font_size="x-large",
+            text_color="#FF0000",
+            text_opacity=1,
         )
         expected_navbar = ".navbar {background-color: rgba(10,10,10,0.5) !important;}"
-        expected_navlink = ".nav-link {font-size:x-large;}"
+        expected_navlink = ".nav-link {font-size:x-large;color:rgba(FF,00,00,1);}"
         expected_string = f"{expected_navbar}\n{expected_navlink}"
         self.assertEqual(expected_string, navbar.export())
