@@ -11,10 +11,11 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       max-parallel: 4
       matrix:
         python-version: [ 3.11, 3.12 ]
-        django-version: [4.2, 5.0]
+        django-version: [4.2, 5.0 ]
 
     steps:
       - uses: actions/checkout@v4
@@ -44,9 +45,10 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-          poetry run coverage json runtest.py
+          poetry run coverage run runtest.py
+          poetry run coverage json
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.1.1
+        uses: codecov/codecov-action@v4.2.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: Segelzwerg/django-dynamic-theme
