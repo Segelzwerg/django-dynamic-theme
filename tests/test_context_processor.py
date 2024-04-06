@@ -20,7 +20,7 @@ class ThemeTest(TestCase):
         super().tearDown()
         if path.exists(self.folder):
             rmtree(self.folder)
-            
+
     def test_theme_file(self):
         self.assertDictEqual({"theme_file": "theme.scss"}, theme(""))
 
