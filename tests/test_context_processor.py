@@ -14,12 +14,12 @@ class ThemeTest(TestCase):
         super().setUp()
         self.folder = "static/"
         if not path.exists(self.folder):
-            rmtree(self.folder)
+            mkdir(self.folder)
             
     def tearDown(self) -> None:
         super().tearDown()
         if path.exists(self.folder):
-            rmdir(self.folder)
+            rmtree(self.folder)
             
             
     def test_theme_file(self):
