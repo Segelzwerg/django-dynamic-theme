@@ -11,6 +11,7 @@ Welcome to Django Dynamic Theme's documentation!
    :caption: Contents:
 
    autoapi/django_dynamic_theme/index.rst
+   subjects/navbar.rst
 
 
 
