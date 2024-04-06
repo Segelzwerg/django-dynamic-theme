@@ -7,7 +7,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-from django_dynamic_theme.utill.color_converter import hex_to_tuple
+from django_dynamic_theme.utill.color_converter import hex_to_rgb_tuple
 from django_dynamic_theme.utill.scss_editor import ScssEditor
 
 
@@ -111,10 +111,11 @@ class Navbar(ThemeElement):
         """
         Exports the navbar properties as strings.
         """
-        bg_color = ",".join(hex_to_tuple(self.background_color))
+        bg_color = ",".join(str(x) for x in hex_to_rgb_tuple(self.background_color))
         navbar = f".navbar {{background-color: rgba({bg_color},{self.opacity:.2f}) !important;}}"
         text_color = (
-            ",".join(hex_to_tuple(self.text_color)) + f",{self.text_opacity:.2f}"
+            ",".join(str(x) for x in hex_to_rgb_tuple(self.text_color))
+            + f",{self.text_opacity:.2f}"
         )
         navlink = f".nav-link {{font-size:{self.font_size};color:rgba({text_color});}}"
         return f"{navbar}\n{navlink}"
