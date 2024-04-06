@@ -1,4 +1,5 @@
 """Tests the context processor(s)"""
+from os import mkdir, path, remove
 
 from django.test import TestCase
 
@@ -8,7 +9,17 @@ from django_dynamic_theme.models import Background, Theme
 
 class ThemeTest(TestCase):
     """Tests the theme context processor."""
-
+    def setUp(self) -> None:
+        super().setUp()
+        self.folder = "static/"
+        if not path.exists(self.folder):
+            mkdir(self.folder)
+            
+    def tearDown(self) -> None:
+        super().tearDown()
+        if path.exists(self.folder):
+            remove(self.folder)
+            
     def test_theme_file(self):
         self.assertDictEqual({"theme_file": "theme.scss"}, theme(""))
 
