@@ -122,3 +122,20 @@ class NavbarTest(TestCase):
         )
         navbar.clean_fields()
         self.assertEqual(0.5, navbar.opacity)
+
+    def test_export(self):
+        navbar = Navbar.objects.create(
+            name=self.name, background_color=self.color, opacity=Decimal(0.5)
+        )
+        expected_string = ".navbar {background-color: rgb(10, 10, 10) !important;}"
+        self.assertEqual(expected_string, navbar.export())
+
+    # TODO: add test for correct export
+    # FIX: opacity included
+
+    # TODO: test for font size
+    """
+    .nav-link {
+        font-size: xx-small;
+    }
+    """
