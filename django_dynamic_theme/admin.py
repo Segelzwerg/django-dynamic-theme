@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from django_dynamic_theme.models import Background, Theme
+from django_dynamic_theme.models import Background, Navbar, Theme
 
 
 @admin.register(Theme)
@@ -20,3 +20,18 @@ class BackgroundAdmin(admin.ModelAdmin):
     """
 
     list_display = ["primary_bg"]
+
+
+@admin.register(Navbar)
+class NavbarAdmin(admin.ModelAdmin):
+    """
+    The admin model for the navigation bar.
+    """
+
+    list_display = [
+        "background_color",
+        "opacity",
+        "font_size",
+        "text_color",
+        "text_opacity",
+    ]
