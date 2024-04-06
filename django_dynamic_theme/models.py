@@ -98,16 +98,15 @@ class Navbar(ThemeElement):
     )
 
     def export(self) -> str:
-        # TODO: test for font size
         """
-        .nav-link {
-            font-size: xx-small;
-        }
+        Exports the navbar properties as strings.
         """
         bg_color = ",".join(hex_to_tuple(self.background_color))
-        return (
+        navbar = (
             f".navbar {{background-color: rgba({bg_color},{self.opacity}) !important;}}"
         )
+        navlink = f".nav-link {{font-size:{self.font_size};}}"
+        return f"{navbar}\n{navlink}"
 
 
 class Theme(models.Model):

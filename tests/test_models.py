@@ -125,17 +125,12 @@ class NavbarTest(TestCase):
 
     def test_export(self):
         navbar = Navbar.objects.create(
-            name=self.name, background_color=self.color, opacity=Decimal(0.5)
+            name=self.name,
+            background_color=self.color,
+            opacity=Decimal(0.5),
+            font_size="x-large",
         )
-        expected_string = ".navbar {background-color: rgba(10,10,10,0.5) !important;}"
+        expected_navbar = ".navbar {background-color: rgba(10,10,10,0.5) !important;}"
+        expected_navlink = ".nav-link {font-size:x-large;}"
+        expected_string = f"{expected_navbar}\n{expected_navlink}"
         self.assertEqual(expected_string, navbar.export())
-
-    # TODO: add test for correct export
-    # FIX: opacity included
-
-    # TODO: test for font size
-    """
-    .nav-link {
-        font-size: xx-small;
-    }
-    """
