@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock, mock_open, patch
 from django.test import TestCase
 
-from django_dynamic_theme.utill.color_converter import hex_to_tuple
+from django_dynamic_theme.utill.color_converter import hex_to_rgb_tuple, hex_to_tuple
 from django_dynamic_theme.utill.scss_editor import ScssEditor
 
 
@@ -19,6 +19,11 @@ class ScssEditorTest(TestCase):
 
 class ColorConverterTest(TestCase):
     def test_hex_converter(self):
-        rgb = "#1234FF"
+        hex = "#1234FF"
         expected_tuple = ("12", "34", "FF")
-        self.assertEqual(expected_tuple, hex_to_tuple(rgb))
+        self.assertEqual(expected_tuple, hex_to_tuple(hex))
+
+    def test_hex_to_rgb_converter(self):
+        hex = "#1234FF"
+        expected_tuple = (18, 52, 255)
+        self.assertEqual(expected_tuple, hex_to_rgb_tuple(hex))
