@@ -16,9 +16,18 @@ class ThemeModelTest(TestCase):
         self.file_path = f"{self.folder}/{self.theme_name}.scss"
         self.color: str = "F0F0F0"
         self.background: Background = Background.objects.create(primary_bg=self.color)
+        self.navbar: Navbar = Navbar.objects.create(
+            name="Test", background_color="#FFFF00", text_color="#111111"
+        )
         if not path.exists(self.folder):
             mkdir(self.folder)
         _ = open(self.file_path, mode="w+")
+        self.theme = Theme.objects.create(
+            name=self.theme_name, background=self.background, navbar=self.navbar
+        )
+        self.expected_string = (
+            f"body {{{self.background.export()}}}\n{self.navbar.export()}"
+        )
 
     def tearDown(self) -> None:
         super().tearDown()
@@ -26,35 +35,32 @@ class ThemeModelTest(TestCase):
             remove(self.file_path)
 
     def test_export(self):
-        theme = Theme.objects.create(name=self.theme_name, background=self.background)
-        expected_string = f"body {{background: {self.color};}}"
-        self.assertEqual(expected_string, theme.export())
+        self.assertEqual(self.expected_string, self.theme.export())
 
     def test_export_without_pre_existing_file(self):
         if path.exists(self.file_path):
             remove(self.file_path)
-        theme = Theme.objects.create(name=self.theme_name, background=self.background)
-        expected_string = f"body {{background: {self.color};}}"
-        self.assertEqual(expected_string, theme.export())
+        self.assertEqual(self.expected_string, self.theme.export())
 
     def test_export_if_background_is_changed(self):
-        theme = Theme.objects.create(name=self.theme_name, background=self.background)
         new_color = "123456"
         self.background.primary_bg = new_color
         self.background.save()
-        expected_string = f"body {{background: {new_color};}}"
-        self.assertEqual(expected_string, theme.export())
+        expected_string = f"body {{{self.background.export()}}}\n{self.navbar.export()}"
+        self.assertEqual(expected_string, self.theme.export())
 
     def test_updated_if_element_saved(self):
-        theme = Theme.objects.create(name=self.theme_name, background=self.background)
         new_color = "123456"
         self.background.primary_bg = new_color
         self.background.save()
-        self.assertEqual(new_color, theme.background.primary_bg)
+        self.assertEqual(new_color, self.theme.background.primary_bg)
 
     def test_theme_default_uniqueness(self):
         _ = Theme.objects.create(
-            name="Original", default=True, background=self.background
+            name="Original",
+            default=True,
+            background=self.background,
+            navbar=self.navbar,
         )
         with self.assertRaises(IntegrityError):
             _ = Theme.objects.create(
@@ -62,8 +68,7 @@ class ThemeModelTest(TestCase):
             )
 
     def test_background_not_deleted_after_theme_deletion(self):
-        theme = Theme.objects.create(name=self.theme_name, background=self.background)
-        theme.delete()
+        self.theme.delete()
         background_fetched = Background.objects.first()
         self.assertIsNotNone(background_fetched)
         self.assertEqual(self.background, background_fetched)
@@ -132,7 +137,7 @@ class NavbarTest(TestCase):
             text_color="#FF0000",
             text_opacity=1,
         )
-        expected_navbar = ".navbar {background-color: rgba(10,10,10,0.5) !important;}"
-        expected_navlink = ".nav-link {font-size:x-large;color:rgba(FF,00,00,1);}"
+        expected_navbar = ".navbar {background-color: rgba(10,10,10,0.50) !important;}"
+        expected_navlink = ".nav-link {font-size:x-large;color:rgba(FF,00,00,1.00);}"
         expected_string = f"{expected_navbar}\n{expected_navlink}"
         self.assertEqual(expected_string, navbar.export())
