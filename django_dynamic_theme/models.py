@@ -98,22 +98,16 @@ class Navbar(ThemeElement):
     )
 
     def export(self) -> str:
-        # TODO: wrong export
-        # TODO: add test for correct export
-        # FIX: opacity included
-        """
-        .navbar {
-            background-color: rgb(41, 45, 51) !important;
-        }
-        """
-
         # TODO: test for font size
         """
         .nav-link {
             font-size: xx-small;
         }
         """
-        return f".navbar {{background-color: rgb{hex_to_tuple(self.background_color)} !important;}}"
+        bg_color = ",".join(hex_to_tuple(self.background_color))
+        return (
+            f".navbar {{background-color: rgba({bg_color},{self.opacity}) !important;}}"
+        )
 
 
 class Theme(models.Model):
