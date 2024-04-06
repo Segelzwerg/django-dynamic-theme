@@ -1,26 +1,18 @@
 """Admins modles for Theme."""
 
 from abc import ABCMeta, abstractmethod
-import json
 from colorfield.fields import ColorField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
+from django_dynamic_theme.utill.color_converter import hex_to_tuple
 from django_dynamic_theme.utill.scss_editor import ScssEditor
 
 
 class FontSizeChoice(models.TextChoices):
     """
     List of pre defined css font sizes.
-    font-size: xx-small;
-    font-size: x-small;
-    font-size: small;
-    font-size: medium;
-    font-size: large;
-    font-size: x-large;
-    font-size: xx-large;
-    font-size: xxx-large;
     Or px or em or % see https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
     """
 
@@ -121,7 +113,7 @@ class Navbar(ThemeElement):
             font-size: xx-small;
         }
         """
-        return json.dumps({self})
+        return f".navbar {{background-color: rgb{hex_to_tuple(self.background_color)} !important;}}"
 
 
 class Theme(models.Model):

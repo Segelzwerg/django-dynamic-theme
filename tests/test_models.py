@@ -127,7 +127,7 @@ class NavbarTest(TestCase):
         navbar = Navbar.objects.create(
             name=self.name, background_color=self.color, opacity=Decimal(0.5)
         )
-        expected_string = ".navbar {background-color: rgb(10, 10, 10) !important;}"
+        expected_string = ".navbar {background-color: rgb('10', '10', '10') !important;}"
         self.assertEqual(expected_string, navbar.export())
 
     # TODO: add test for correct export
