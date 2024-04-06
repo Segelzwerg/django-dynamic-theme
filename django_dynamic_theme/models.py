@@ -10,6 +10,30 @@ from django.db import models
 from django_dynamic_theme.utill.scss_editor import ScssEditor
 
 
+class FontSizeChoice(models.TextChoices):
+    """
+    List of pre defined css font sizes.
+    font-size: xx-small;
+    font-size: x-small;
+    font-size: small;
+    font-size: medium;
+    font-size: large;
+    font-size: x-large;
+    font-size: xx-large;
+    font-size: xxx-large;
+    Or px or em or % see https://developer.mozilla.org/en-US/docs/Web/CSS/font-size
+    """
+
+    XX_SMALL = "xx-small"
+    X_SMALL = "x-small"
+    SMALL = "small"
+    MEDIUM = "medium"
+    LARGE = "large"
+    X_LARGE = "x-large"
+    XX_LARGE = "xx-large"
+    XXX_LARGE = "xxx-large"
+
+
 class AbstractModelMeta(ABCMeta, type(models.Model)):
     """Abstract class for the meta to avoid metaclass exception"""
 
@@ -77,8 +101,26 @@ class Navbar(ThemeElement):
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(1)],
     )
+    font_size = models.CharField(
+        max_length=20, choices=FontSizeChoice.choices, default=FontSizeChoice.MEDIUM
+    )
 
     def export(self) -> str:
+        # TODO: wrong export
+        # TODO: add test for correct export
+        # FIX: opacity included
+        """
+        .navbar {
+            background-color: rgb(41, 45, 51) !important;
+        }
+        """
+
+        # TODO: test for font size
+        """
+        .nav-link {
+            font-size: xx-small;
+        }
+        """
         return json.dumps({self})
 
 
