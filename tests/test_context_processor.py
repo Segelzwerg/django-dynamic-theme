@@ -1,5 +1,6 @@
 """Tests the context processor(s)"""
-from os import mkdir, path, remove
+from os import mkdir, path
+from shutil import rmtree
 
 from django.test import TestCase
 
@@ -13,12 +14,13 @@ class ThemeTest(TestCase):
         super().setUp()
         self.folder = "static/"
         if not path.exists(self.folder):
-            mkdir(self.folder)
+            rmtree(self.folder)
             
     def tearDown(self) -> None:
         super().tearDown()
         if path.exists(self.folder):
-            remove(self.folder)
+            rmdir(self.folder)
+            
             
     def test_theme_file(self):
         self.assertDictEqual({"theme_file": "theme.scss"}, theme(""))
