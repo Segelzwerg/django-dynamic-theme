@@ -93,6 +93,7 @@ class Navbar(ThemeElement):
         max_digits=3,
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(1)],
+        default=1,
     )
     font_size = models.CharField(
         max_length=20, choices=FontSizeChoice.choices, default=FontSizeChoice.MEDIUM
