@@ -1,6 +1,7 @@
 """Admins modles for Theme."""
 
 from abc import ABCMeta, abstractmethod
+from decimal import Decimal
 from colorfield.fields import ColorField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -93,7 +94,7 @@ class Navbar(ThemeElement):
         max_digits=3,
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(1)],
-        default=1,
+        default=Decimal(1.00),
     )
     font_size = models.CharField(
         max_length=20, choices=FontSizeChoice.choices, default=FontSizeChoice.MEDIUM
@@ -103,7 +104,7 @@ class Navbar(ThemeElement):
         max_digits=3,
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(1)],
-        default=1,
+        default=Decimal(1.00),
     )
 
     def export(self) -> str:
@@ -111,10 +112,10 @@ class Navbar(ThemeElement):
         Exports the navbar properties as strings.
         """
         bg_color = ",".join(hex_to_tuple(self.background_color))
-        navbar = (
-            f".navbar {{background-color: rgba({bg_color},{self.opacity}) !important;}}"
+        navbar = f".navbar {{background-color: rgba({bg_color},{self.opacity:.2f}) !important;}}"
+        text_color = (
+            ",".join(hex_to_tuple(self.text_color)) + f",{self.text_opacity:.2f}"
         )
-        text_color = ",".join(hex_to_tuple(self.text_color)) + f",{self.text_opacity}"
         navlink = f".nav-link {{font-size:{self.font_size};color:rgba({text_color});}}"
         return f"{navbar}\n{navlink}"
 
@@ -150,11 +151,12 @@ class Theme(models.Model):
         """
         return f"static/{self.name}.scss"
 
+    # pylint: disable=no-member
     def export(self) -> str:
         """
         Exports all listed configurations as string in SCSS format.
         """
-        return f"body {{{self.background.export()}}}"  # pylint: disable=no-member
+        return f"body {{{self.background.export()}}}\n{self.navbar.export()}"
 
     def write_export(self) -> None:
         """Writes the content of the export to the file."""
