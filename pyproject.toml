@@ -6,7 +6,7 @@ authors = ["Segelzwerg <25705862+Segelzwerg@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10"
 django = "^5.0"
 setuptools = "^69.2.0"
 django-colorfield = "^0.11.0"
