@@ -12,6 +12,6 @@ class CompressorHandleMiddleware:
         try:
             response = self.get_response(request)
         except UncompressableFileError:
-            Theme.objects.get(default=True).save()
+            Theme.objects.get(default=True).write_export()
             response = self.get_response(request)
         return response
