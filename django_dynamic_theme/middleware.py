@@ -1,6 +1,5 @@
 """Middlewares for the dynamic theme app."""
 
-
 from django_dynamic_theme.errors import ThemeMissingError
 from django_dynamic_theme.models import Theme
 
@@ -9,9 +8,6 @@ from django_dynamic_theme.models import Theme
 class MissingThemeHandleMiddleware:
     """
     Detects if the theme file is missing.
-    If a default theme is set it will export this one.
-    If there is not default theme it will export the first one.
-    If no theme exists it will raise an error.
     """
 
     def __init__(self, get_response):
@@ -23,6 +19,11 @@ class MissingThemeHandleMiddleware:
         return response
 
     def process_exception(self, request, exception):
+        """
+        If a default theme is set it will export this one.
+        If there is not default theme it will export the first one.
+        If no theme exists it will raise an error.
+        """
         try:
             theme = Theme.objects.get(default=True)
         except Theme.DoesNotExist:
