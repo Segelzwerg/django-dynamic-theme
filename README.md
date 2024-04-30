@@ -25,8 +25,8 @@ INSTALLED_APPS = [
 ]
 ...
 # Default setting but you can set it to some other path.
-static_url = "static/"
-static_root = "static"
+STATIC_URL = "static/"
+STATIC_ROOT = "static"
 STATICFILES_FINDERS = [
     ...,
     "compressor.finders.CompressorFinder",
