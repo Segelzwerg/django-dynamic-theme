@@ -57,3 +57,13 @@ class MiddlewareTest(TestCase):
         self.assertEqual(2, get_response.call_count)
         self.assertEqual("200", response)
         self.assertTrue(path.exists(self.file_path))
+
+    def test_save_file_no_theme(self):
+        request = MagicMock()
+        get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
+        middleware = CompressorHandleMiddleware(get_response)
+        response = middleware(request)
+        get_response.assert_called_with(request)
+        self.assertEqual(2, get_response.call_count)
+        self.assertEqual("200", response)
+        self.assertFalse(path.exists(self.file_path))
