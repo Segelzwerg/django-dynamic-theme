@@ -1,6 +1,7 @@
 from os import mkdir, path, remove
 from unittest.mock import MagicMock
 from compressor.exceptions import UncompressableFileError
+from django.http import HttpResponse
 from django.test import TestCase
 
 from django_dynamic_theme.errors import ThemeMissingError
@@ -33,12 +34,11 @@ class MiddlewareTest(TestCase):
             name=self.theme_name, background=background, navbar=navbar, default=True
         )
         request = MagicMock()
-        get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
+        get_response = MagicMock(side_effect=[HttpResponse()])
         middleware = MissingThemeHandleMiddleware(get_response)
-        response = middleware(request)
+        middleware.process_exception(request, UncompressableFileError())
         get_response.assert_called_with(request)
-        self.assertEqual(2, get_response.call_count)
-        self.assertEqual("200", response)
+        self.assertEqual(1, get_response.call_count)
         self.assertTrue(path.exists(self.file_path))
 
     def test_save_file_no_default(self):
@@ -51,20 +51,18 @@ class MiddlewareTest(TestCase):
             name=self.theme_name, background=background, navbar=navbar, default=False
         )
         request = MagicMock()
-        get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
+        get_response = MagicMock(side_effect=[HttpResponse()])
         middleware = MissingThemeHandleMiddleware(get_response)
-        response = middleware(request)
+        middleware.process_exception(request, UncompressableFileError())
         get_response.assert_called_with(request)
-        self.assertEqual(2, get_response.call_count)
-        self.assertEqual("200", response)
+        self.assertEqual(1, get_response.call_count)
         self.assertTrue(path.exists(self.file_path))
 
     def test_save_file_no_theme(self):
         request = MagicMock()
-        get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
+        get_response = MagicMock()
         middleware = MissingThemeHandleMiddleware(get_response)
         with self.assertRaises(ThemeMissingError):
-            _ = middleware(request)
-        get_response.assert_called_with(request)
-        self.assertEqual(1, get_response.call_count)
+            middleware.process_exception(request, UncompressableFileError())
+        self.assertEqual(0, get_response.call_count)
         self.assertFalse(path.exists(self.file_path))

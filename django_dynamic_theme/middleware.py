@@ -1,6 +1,5 @@
 """Middlewares for the dynamic theme app."""
 
-from compressor.exceptions import UncompressableFileError
 
 from django_dynamic_theme.errors import ThemeMissingError
 from django_dynamic_theme.models import Theme
@@ -20,15 +19,16 @@ class MissingThemeHandleMiddleware:
 
     # pylint: disable=no-member
     def __call__(self, request):
+        response = self.get_response(request)
+        return response
+
+    def process_exception(self, request, exception):
         try:
-            response = self.get_response(request)
-        except UncompressableFileError as uncomp_error:
-            try:
-                theme = Theme.objects.get(default=True)
-            except Theme.DoesNotExist:
-                theme = Theme.objects.first()
-            if theme is None:
-                raise ThemeMissingError from uncomp_error
-            theme.write_export()
-            response = self.get_response(request)
+            theme = Theme.objects.get(default=True)
+        except Theme.DoesNotExist:
+            theme = Theme.objects.first()
+        if theme is None:
+            raise ThemeMissingError from exception
+        theme.write_export()
+        response = self.get_response(request)
         return response
