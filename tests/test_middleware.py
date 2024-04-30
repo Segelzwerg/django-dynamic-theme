@@ -3,7 +3,8 @@ from unittest.mock import MagicMock
 from compressor.exceptions import UncompressableFileError
 from django.test import TestCase
 
-from django_dynamic_theme.middleware import CompressorHandleMiddleware
+from django_dynamic_theme.errors import ThemeMissingError
+from django_dynamic_theme.middleware import MissingThemeHandleMiddleware
 from django_dynamic_theme.models import Background, Navbar, Theme
 
 
@@ -33,7 +34,7 @@ class MiddlewareTest(TestCase):
         )
         request = MagicMock()
         get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
-        middleware = CompressorHandleMiddleware(get_response)
+        middleware = MissingThemeHandleMiddleware(get_response)
         response = middleware(request)
         get_response.assert_called_with(request)
         self.assertEqual(2, get_response.call_count)
@@ -51,7 +52,7 @@ class MiddlewareTest(TestCase):
         )
         request = MagicMock()
         get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
-        middleware = CompressorHandleMiddleware(get_response)
+        middleware = MissingThemeHandleMiddleware(get_response)
         response = middleware(request)
         get_response.assert_called_with(request)
         self.assertEqual(2, get_response.call_count)
@@ -61,9 +62,9 @@ class MiddlewareTest(TestCase):
     def test_save_file_no_theme(self):
         request = MagicMock()
         get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
-        middleware = CompressorHandleMiddleware(get_response)
-        response = middleware(request)
-        get_response.assert_called_with(request)
-        self.assertEqual(2, get_response.call_count)
-        self.assertEqual("200", response)
+        middleware = MissingThemeHandleMiddleware(get_response)
+        _ = middleware(request)
+        with self.assertRaises(ThemeMissingError):
+            get_response.assert_called_with(request)
+        self.assertEqual(1, get_response.call_count)
         self.assertFalse(path.exists(self.file_path))
