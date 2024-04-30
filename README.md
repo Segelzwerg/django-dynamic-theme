@@ -34,7 +34,7 @@ STATICFILES_FINDERS = [
 COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
 MIDDLEWARE = [
     ...,
-    "django_dynamic_theme.middleware.CompressorHandleMiddleware",
+    "django_dynamic_theme.middleware.MissingThemeHandleMiddleware",
 ]
 TEMPLATES = {
   "OPTIONS": {
