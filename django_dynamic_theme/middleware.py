@@ -6,6 +6,7 @@ from django_dynamic_theme.errors import ThemeMissingError
 from django_dynamic_theme.models import Theme
 
 
+# pylint: disable=too-few-public-methods
 class MissingThemeHandleMiddleware:
     """
     Detects if the theme file is missing.
@@ -17,6 +18,7 @@ class MissingThemeHandleMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
 
+    # pylint: disable=no-member
     def __call__(self, request):
         try:
             response = self.get_response(request)
