@@ -16,6 +16,7 @@ class CompressorHandleMiddleware:
                 theme = Theme.objects.get(default=True)
             except Theme.DoesNotExist:
                 theme = Theme.objects.first()
-            theme.write_export()
+            if theme is not None:
+                theme.write_export()
             response = self.get_response(request)
         return response
