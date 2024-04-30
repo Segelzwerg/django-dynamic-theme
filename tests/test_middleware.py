@@ -63,8 +63,8 @@ class MiddlewareTest(TestCase):
         request = MagicMock()
         get_response = MagicMock(side_effect=[UncompressableFileError, "200"])
         middleware = MissingThemeHandleMiddleware(get_response)
-        _ = middleware(request)
         with self.assertRaises(ThemeMissingError):
-            get_response.assert_called_with(request)
+            _ = middleware(request)
+        get_response.assert_called_with(request)
         self.assertEqual(1, get_response.call_count)
         self.assertFalse(path.exists(self.file_path))
