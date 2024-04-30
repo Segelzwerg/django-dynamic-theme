@@ -22,6 +22,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django_dynamic_theme.middleware.MissingThemeHandleMiddleware",
 ]
 
 TEMPLATES = [
