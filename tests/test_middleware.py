@@ -1,6 +1,7 @@
 from os import mkdir, path, remove
 from unittest.mock import MagicMock
 from compressor.exceptions import UncompressableFileError
+from django.conf import settings
 from django.http import HttpResponse
 from django.test import TestCase
 
@@ -59,6 +60,7 @@ class MiddlewareTest(TestCase):
         self.assertTrue(path.exists(self.file_path))
 
     def test_save_file_no_theme(self):
+        settings.DEBUG = True
         request = MagicMock()
         get_response = MagicMock()
         middleware = MissingThemeHandleMiddleware(get_response)

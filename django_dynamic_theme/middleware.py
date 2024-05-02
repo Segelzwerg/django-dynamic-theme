@@ -1,5 +1,8 @@
 """Middlewares for the dynamic theme app."""
 
+import warnings
+
+from django.conf import settings
 from django_dynamic_theme.errors import ThemeMissingError
 from django_dynamic_theme.models import Theme
 
@@ -28,8 +31,11 @@ class MissingThemeHandleMiddleware:
             theme = Theme.objects.get(default=True)
         except Theme.DoesNotExist:
             theme = Theme.objects.first()
-        if theme is None:
+        if theme is None and settings.DEBUG:
             raise ThemeMissingError from exception
+        if theme is None:
+            warnings.warn("Theme is missing.")
+            return None
         theme.write_export()
         response = self.get_response(request)
         return response
