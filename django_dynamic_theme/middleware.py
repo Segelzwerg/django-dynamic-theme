@@ -33,7 +33,7 @@ class MissingThemeHandleMiddleware:
             theme = Theme.objects.first()
         if theme is None and settings.DEBUG:
             raise ThemeMissingError from exception
-        elif theme is None:
+        if theme is None:
             warnings.warn("Theme is missing.")
             return None
         theme.write_export()
