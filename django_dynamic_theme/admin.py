@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from django_dynamic_theme.models import Background, Navbar, Theme
+from django_dynamic_theme.models import Background, MediaGallery, Navbar, Theme
 
 
 @admin.register(Theme)
@@ -20,6 +20,21 @@ class BackgroundAdmin(admin.ModelAdmin):
     """
 
     list_display = ["primary_bg"]
+
+
+@admin.register(MediaGallery)
+class MediaGalleryAdmin(admin.ModelAdmin):
+    """
+    The admin model for the media gallery.
+    """
+
+    list_display = [
+        "margin_left",
+        "margin_right",
+        "max_width",
+        "item_align",
+        "row_margin_top",
+    ]
 
 
 @admin.register(Navbar)
