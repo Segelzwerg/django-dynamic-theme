@@ -3,7 +3,7 @@ from os import mkdir, path, remove
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django_dynamic_theme.models import Background, Navbar, Theme
+from django_dynamic_theme.models import Background, MediaGallery, Navbar, Theme
 
 from django.test import TestCase
 
@@ -93,6 +93,24 @@ class BackgroundModelTest(TestCase):
     def test_repr(self):
         background = Background(name="dark", primary_bg=self.color)
         self.assertEqual(f"Background: {background.name}", repr(background))
+
+
+class MediaGalleryTest(TestCase):
+    def test_export(self):
+        margin = "auto"
+        media_gallery = MediaGallery(
+            margin_left=margin,
+            margin_right=margin,
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
+        expected_string = f""".mediagallery {{margin-left: {margin};
+margin-right: {margin};
+max-width: fit-content;
+text-align: left;
+.row {{margin-top: 10px;}}}}"""
+        self.assertEqual(expected_string, media_gallery.export())
 
 
 class NavbarTest(TestCase):
