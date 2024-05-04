@@ -6,7 +6,7 @@ from shutil import rmtree
 from django.test import TestCase
 
 from django_dynamic_theme.context_processor import theme
-from django_dynamic_theme.models import Background, Navbar, Theme
+from django_dynamic_theme.models import Background, MediaGallery, Navbar, Theme
 
 
 class ThemeTest(TestCase):
@@ -28,10 +28,21 @@ class ThemeTest(TestCase):
 
     def test_theme_file_defined_by_admin(self):
         background = Background.objects.create(name="black", primary_bg="000000")
+        media_gallery = MediaGallery.objects.create(
+            margin_left="auto",
+            margin_right="auto",
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
         navbar: Navbar = Navbar.objects.create(
             name="Test", background_color="#FFFF00", text_color="#111111"
         )
         admin_theme = Theme.objects.create(
-            name="Admin", default=True, background=background, navbar=navbar
+            name="Admin",
+            default=True,
+            background=background,
+            media_gallery=media_gallery,
+            navbar=navbar,
         )
         self.assertDictEqual({"theme_file": f"{admin_theme.name}.scss"}, theme(""))

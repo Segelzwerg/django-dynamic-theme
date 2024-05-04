@@ -7,7 +7,7 @@ from django.test import TestCase
 
 from django_dynamic_theme.errors import ThemeMissingError
 from django_dynamic_theme.middleware import MissingThemeHandleMiddleware
-from django_dynamic_theme.models import Background, Navbar, Theme
+from django_dynamic_theme.models import Background, MediaGallery, Navbar, Theme
 
 
 class MiddlewareTest(TestCase):
@@ -16,6 +16,13 @@ class MiddlewareTest(TestCase):
         self.theme_name = "test"
         self.folder = "static/"
         self.file_path = f"{self.folder}/{self.theme_name}.scss"
+        self.media_gallery = MediaGallery.objects.create(
+            margin_left="auto",
+            margin_right="auto",
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
 
         if not path.exists(self.folder):
             mkdir(self.folder)
@@ -32,7 +39,11 @@ class MiddlewareTest(TestCase):
             name="Test", background_color="#FFFF00", text_color="#111111"
         )
         Theme.objects.create(
-            name=self.theme_name, background=background, navbar=navbar, default=True
+            name=self.theme_name,
+            background=background,
+            media_gallery=self.media_gallery,
+            navbar=navbar,
+            default=True,
         )
         request = MagicMock()
         get_response = MagicMock(side_effect=[HttpResponse()])
@@ -49,7 +60,11 @@ class MiddlewareTest(TestCase):
             name="Test", background_color="#FFFF00", text_color="#111111"
         )
         Theme.objects.create(
-            name=self.theme_name, background=background, navbar=navbar, default=False
+            name=self.theme_name,
+            background=background,
+            media_gallery=self.media_gallery,
+            navbar=navbar,
+            default=False,
         )
         request = MagicMock()
         get_response = MagicMock(side_effect=[HttpResponse()])

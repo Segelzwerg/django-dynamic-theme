@@ -3,7 +3,7 @@ from os import mkdir, path, remove
 
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django_dynamic_theme.models import Background, Navbar, Theme
+from django_dynamic_theme.models import Background, MediaGallery, Navbar, Theme
 
 from django.test import TestCase
 
@@ -15,6 +15,13 @@ class ThemeModelTest(TestCase):
         self.folder = "static/"
         self.file_path = f"{self.folder}/{self.theme_name}.scss"
         self.color: str = "F0F0F0"
+        self.media_gallery = MediaGallery.objects.create(
+            margin_left="auto",
+            margin_right="auto",
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
         self.background: Background = Background.objects.create(primary_bg=self.color)
         self.navbar: Navbar = Navbar.objects.create(
             name="Test", background_color="#FFFF00", text_color="#111111"
@@ -23,11 +30,14 @@ class ThemeModelTest(TestCase):
             mkdir(self.folder)
         _ = open(self.file_path, mode="w+")
         self.theme = Theme.objects.create(
-            name=self.theme_name, background=self.background, navbar=self.navbar
+            name=self.theme_name,
+            background=self.background,
+            media_gallery=self.media_gallery,
+            navbar=self.navbar,
         )
-        self.expected_string = (
-            f"body {{{self.background.export()}}}\n{self.navbar.export()}"
-        )
+        self.expected_string = f"""body {{{self.background.export()}}}
+{self.media_gallery.export()}
+{self.navbar.export()}"""
 
     def tearDown(self) -> None:
         super().tearDown()
@@ -46,7 +56,9 @@ class ThemeModelTest(TestCase):
         new_color = "123456"
         self.background.primary_bg = new_color
         self.background.save()
-        expected_string = f"body {{{self.background.export()}}}\n{self.navbar.export()}"
+        expected_string = f"""body {{{self.background.export()}}}
+{self.media_gallery.export()}
+{self.navbar.export()}"""
         self.assertEqual(expected_string, self.theme.export())
 
     def test_updated_if_element_saved(self):
@@ -60,6 +72,7 @@ class ThemeModelTest(TestCase):
             name="Original",
             default=True,
             background=self.background,
+            media_gallery=self.media_gallery,
             navbar=self.navbar,
         )
         with self.assertRaises(IntegrityError):
@@ -93,6 +106,24 @@ class BackgroundModelTest(TestCase):
     def test_repr(self):
         background = Background(name="dark", primary_bg=self.color)
         self.assertEqual(f"Background: {background.name}", repr(background))
+
+
+class MediaGalleryTest(TestCase):
+    def test_export(self):
+        margin = "auto"
+        media_gallery = MediaGallery(
+            margin_left=margin,
+            margin_right=margin,
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
+        expected_string = f""".mediagallery {{margin-left: {margin};
+margin-right: {margin};
+max-width: fit-content;
+text-align: left;
+.row {{margin-top: 10px;}}}}"""
+        self.assertEqual(expected_string, media_gallery.export())
 
 
 class NavbarTest(TestCase):
