@@ -86,6 +86,36 @@ class Background(ThemeElement):
         return f"background: {self.primary_bg};"
 
 
+class MediaGallery(ThemeElement):
+    """
+    A specialization of a n-dimensional list for the purpose of videos / images.
+    :param margin_left: The margin of the entire media gallery on left side.
+    :param margin_right: The margin of the entire media gallery on right side.
+    :param max_width: The maximum width of the entire media gallery.
+    :param item_align: The align of the single items within a row.
+    :param row_margin_top: The top margin between rows.
+    """
+
+    margin_left = models.CharField(max_length=50)
+    margin_right = models.CharField(max_length=50)
+    max_width = models.CharField(max_length=50)
+    item_align = models.CharField(max_length=50)
+    row_margin_top = models.CharField(max_length=50)
+
+    def export(self) -> str:
+        margin_left = f"margin-left: {self.margin_left};"
+        margin_right = f"margin-right: {self.margin_right};"
+        max_width = f"max-width: {self.max_width};"
+        text_align = f"text-align: {self.item_align};"
+        row = f".row {{margin-top: {self.row_margin_top};}}"
+        media_gallery = f""".mediagallery {{{margin_left}
+{margin_right}
+{max_width}
+{text_align}
+{row}}}"""
+        return media_gallery
+
+
 class Navbar(ThemeElement):
     """Stores the theming of bootstrap 5 nav bar"""
 
