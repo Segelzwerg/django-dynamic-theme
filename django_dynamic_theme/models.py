@@ -159,6 +159,9 @@ class Theme(models.Model):
     name = models.CharField(max_length=50)
     default = models.BooleanField(default=False)
     background: Background = models.ForeignKey(Background, on_delete=models.CASCADE)
+    media_gallery: MediaGallery = models.ForeignKey(
+        MediaGallery, default=None, null=True, on_delete=models.DO_NOTHING
+    )
     navbar: Navbar = models.ForeignKey(
         Navbar, default=None, null=True, on_delete=models.CASCADE
     )
@@ -187,7 +190,9 @@ class Theme(models.Model):
         """
         Exports all listed configurations as string in SCSS format.
         """
-        return f"body {{{self.background.export()}}}\n{self.navbar.export()}"
+        return f"""body {{{self.background.export()}}}
+{self.media_gallery.export()}
+{self.navbar.export()}"""
 
     def write_export(self) -> None:
         """Writes the content of the export to the file."""
