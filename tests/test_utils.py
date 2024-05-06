@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock, mock_open, patch
 from django.test import TestCase
 
-from django_dynamic_theme.utill.color_converter import hex_to_rgb_tuple, hex_to_tuple
-from django_dynamic_theme.utill.scss_editor import ScssEditor
+from django_dynamic_theme.util.color_converter import hex_to_rgb_tuple, hex_to_tuple
+from django_dynamic_theme.util.scss_editor import ScssEditor
 
 
 class ScssEditorTest(TestCase):

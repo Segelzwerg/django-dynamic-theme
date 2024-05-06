@@ -7,8 +7,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-from django_dynamic_theme.utill.color_converter import hex_to_rgb_tuple
-from django_dynamic_theme.utill.scss_editor import ScssEditor
+from django_dynamic_theme.util.color_converter import hex_to_rgb_tuple
+from django_dynamic_theme.util.scss_editor import ScssEditor
 
 
 # pylint: disable=too-many-ancestors

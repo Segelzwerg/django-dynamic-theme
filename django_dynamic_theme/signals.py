@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_delete
 
 from django_dynamic_theme.models import Theme
-from django_dynamic_theme.utill.scss_editor import ScssEditor
+from django_dynamic_theme.util.scss_editor import ScssEditor
 
 
 @receiver(post_delete, sender=Theme)
