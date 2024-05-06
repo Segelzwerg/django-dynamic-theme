@@ -101,6 +101,9 @@ class MediaGallery(ThemeElement):
     max_width = models.CharField(max_length=50)
     item_align = models.CharField(max_length=50)
     row_margin_top = models.CharField(max_length=50)
+    class Meta:
+        verbose_name = "Media Gallery"
+        verbose_name_plural = "Media Galleries"
 
     def export(self) -> str:
         margin_left = f"margin-left: {self.margin_left};"
