@@ -166,7 +166,7 @@ class Theme(models.Model):
         MediaGallery, default=None, null=True, on_delete=models.DO_NOTHING
     )
     navbar: Navbar = models.ForeignKey(
-        Navbar, default=None, null=True, on_delete=models.CASCADE
+        Navbar, default=None, null=True, on_delete=models.DO_NOTHING
     )
 
     # pylint: disable=too-few-public-methods
