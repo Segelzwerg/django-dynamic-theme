@@ -193,9 +193,15 @@ class Theme(models.Model):
         """
         Exports all listed configurations as string in SCSS format.
         """
-        return f"""body {{{self.background.export()}}}
-{self.media_gallery.export()}
-{self.navbar.export()}"""
+        background = self.background.export()
+        try: mediagallery = self.media_gallery.export()
+        except: mediagallery = ""
+        try: navbar = self.navbar.export()
+        except: navbar = ""
+
+        return f"""body {{{background}}}
+{mediagallery}
+{navbar}"""
 
     def write_export(self) -> None:
         """Writes the content of the export to the file."""
