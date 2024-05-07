@@ -194,10 +194,11 @@ class Theme(models.Model):
         Exports all listed configurations as string in SCSS format.
         """
         background = self.background.export()
-        try: mediagallery = self.media_gallery.export()
-        except: mediagallery = ""
-        try: navbar = self.navbar.export()
-        except: navbar = ""
+        if not self.media_gallery: mediagallery = ''
+        else: mediagallery = self.media_gallery.export()
+        if not self.navbar: navbar = ''
+        else: navbar = self.navbar.export()
+        
 
         return f"""body {{{background}}}
 {mediagallery}
@@ -214,3 +215,4 @@ class Theme(models.Model):
         """
         super().save(*args, **kwargs)
         self.write_export()
+    
