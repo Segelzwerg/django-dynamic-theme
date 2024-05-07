@@ -101,6 +101,7 @@ class MediaGallery(ThemeElement):
     max_width = models.CharField(max_length=50)
     item_align = models.CharField(max_length=50)
     row_margin_top = models.CharField(max_length=50)
+
     class Meta:
         verbose_name = "Media Gallery"
         verbose_name_plural = "Media Galleries"
@@ -170,6 +171,7 @@ class Theme(models.Model):
     )
 
     # pylint: disable=too-few-public-methods
+
     class Meta:
         """Meta class of the Theme."""
 
@@ -194,11 +196,14 @@ class Theme(models.Model):
         Exports all listed configurations as string in SCSS format.
         """
         background = self.background.export()
-        if not self.media_gallery: mediagallery = ''
-        else: mediagallery = self.media_gallery.export()
-        if not self.navbar: navbar = ''
-        else: navbar = self.navbar.export()
-        
+        if not self.media_gallery:
+            mediagallery = ''
+        else:
+            mediagallery = self.media_gallery.export()
+        if not self.navbar:
+            navbar = ''
+        else:
+            navbar = self.navbar.export()
 
         return f"""body {{{background}}}
 {mediagallery}
@@ -215,4 +220,3 @@ class Theme(models.Model):
         """
         super().save(*args, **kwargs)
         self.write_export()
-    
