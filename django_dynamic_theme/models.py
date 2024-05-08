@@ -102,6 +102,7 @@ class MediaGallery(ThemeElement):
     item_align = models.CharField(max_length=50)
     row_margin_top = models.CharField(max_length=50)
 
+    # pylint: disable=too-few-public-methods
     class Meta:
         verbose_name = "Media Gallery"
         verbose_name_plural = "Media Galleries"
