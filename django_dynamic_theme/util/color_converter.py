@@ -17,7 +17,7 @@ def hex_to_rgb_tuple(hex_str: str) -> tuple[int, int, int]:
     """
     Converts a hex string to a RGB tuple.
     """
-    if not isValidHexaCode(hex_str):
+    if not is_valid_hexa_code(hex_str):
         raise errors.NonHexValueError
     hex_str = hex_str.lstrip("#")
     return tuple(int(hex_str[i:i + 2], 16) for i in (0, 2, 4))
