@@ -104,6 +104,7 @@ class MediaGallery(ThemeElement):
 
     # pylint: disable=too-few-public-methods
     class Meta:
+    """Meta definitions of Media Gallery"""
         verbose_name = "Media Gallery"
         verbose_name_plural = "Media Galleries"
 
