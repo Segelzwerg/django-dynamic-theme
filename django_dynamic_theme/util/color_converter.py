@@ -23,7 +23,7 @@ def hex_to_rgb_tuple(hex_str: str) -> tuple[int, int, int]:
     return tuple(int(hex_str[i:i + 2], 16) for i in (0, 2, 4))
 
 
-def isValidHexaCode(str):
+def is_valid_hexa_code(str):
 
     if (str[0] != '#'):
         return False
