@@ -7,8 +7,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-from django_dynamic_theme.utill.color_converter import hex_to_rgb_tuple
-from django_dynamic_theme.utill.scss_editor import ScssEditor
+from django_dynamic_theme.util.color_converter import hex_to_rgb_tuple
+from django_dynamic_theme.util.scss_editor import ScssEditor
 
 
 # pylint: disable=too-many-ancestors
@@ -102,6 +102,12 @@ class MediaGallery(ThemeElement):
     item_align = models.CharField(max_length=50)
     row_margin_top = models.CharField(max_length=50)
 
+    # pylint: disable=too-few-public-methods
+    class Meta:
+        """Meta definitions of Media Gallery"""
+        verbose_name = "Media Gallery"
+        verbose_name_plural = "Media Galleries"
+
     def export(self) -> str:
         margin_left = f"margin-left: {self.margin_left};"
         margin_right = f"margin-right: {self.margin_right};"
@@ -163,7 +169,7 @@ class Theme(models.Model):
         MediaGallery, default=None, null=True, on_delete=models.DO_NOTHING
     )
     navbar: Navbar = models.ForeignKey(
-        Navbar, default=None, null=True, on_delete=models.CASCADE
+        Navbar, default=None, null=True, on_delete=models.DO_NOTHING
     )
 
     # pylint: disable=too-few-public-methods
@@ -190,9 +196,19 @@ class Theme(models.Model):
         """
         Exports all listed configurations as string in SCSS format.
         """
-        return f"""body {{{self.background.export()}}}
-{self.media_gallery.export()}
-{self.navbar.export()}"""
+        background = self.background.export()
+        if not self.media_gallery:
+            mediagallery = ''
+        else:
+            mediagallery = self.media_gallery.export()
+        if not self.navbar:
+            navbar = ''
+        else:
+            navbar = self.navbar.export()
+
+        return f"""body {{{background}}}
+{mediagallery}
+{navbar}"""
 
     def write_export(self) -> None:
         """Writes the content of the export to the file."""
