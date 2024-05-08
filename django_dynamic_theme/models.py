@@ -171,7 +171,6 @@ class Theme(models.Model):
     )
 
     # pylint: disable=too-few-public-methods
-
     class Meta:
         """Meta class of the Theme."""
 
