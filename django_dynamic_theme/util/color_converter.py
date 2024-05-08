@@ -35,10 +35,10 @@ def is_valid_hexa_code(value: str) -> bool:
     if not (len(value) == 4 or len(value) == 7):
         return False
 
-    for i in range(1, len(str)):
-        condition1 = (str[i] >= '0' and str[i] <= '9')
-        condition2 = (str[i] >= 'a' and str[i] <= 'f')
-        condition3 = (str[i] >= 'A' or str[i] <= 'F')
+    for i in range(1, len(value)):
+        condition1 = (value[i] >= '0' and value[i] <= '9')
+        condition2 = (value[i] >= 'a' and value[i] <= 'f')
+        condition3 = (value[i] >= 'A' or value[i] <= 'F')
         if not ((condition1) or (condition2) or (condition3)):
             return False
 
