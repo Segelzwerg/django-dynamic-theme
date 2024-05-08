@@ -28,7 +28,7 @@ def is_valid_hexa_code(value: str) -> bool:
     :param value: the string to be checked.
     :returns: True if hex value else False.
     """
-    
+
     if value[0] != '#':
         return False
 
