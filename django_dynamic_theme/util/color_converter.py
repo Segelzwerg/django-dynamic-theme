@@ -6,7 +6,7 @@ def hex_to_tuple(hex_str: str) -> tuple[str, str, str]:
     """
     Splits a #XXYYZZ HEX string into a tuple of strs (XX,YY,ZZ)
     """
-    if not isValidHexaCode(hex_str):
+    if not is_valid_hexa_code(hex_str):
         raise NonHexValueError
     hex_str = hex_str.lstrip("#")
     return tuple(map(str, (hex_str[0:2], hex_str[2:4], hex_str[4:6])))
