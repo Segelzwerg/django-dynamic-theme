@@ -1,6 +1,5 @@
-from .. import errors
-
 """Converts colors into different formats."""
+from django_dynamic_theme.errors import NonHexValueError
 
 
 def hex_to_tuple(hex_str: str) -> tuple[str, str, str]:
