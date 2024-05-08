@@ -22,7 +22,7 @@ def hex_to_rgb_tuple(hex_str: str) -> tuple[int, int, int]:
     return tuple(int(hex_str[i:i + 2], 16) for i in (0, 2, 4))
 
 
-def is_valid_hexa_code(str):
+def is_valid_hexa_code(value: str) -> bool:
     """
     Checks if the a string is a hex value.
     :param value: the string to be checked.
