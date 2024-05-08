@@ -28,7 +28,7 @@ class ColorConverterTest(TestCase):
         hex = "#1234FF"
         expected_tuple = (18, 52, 255)
         self.assertEqual(expected_tuple, hex_to_rgb_tuple(hex))
-    
+
     def test_input_validation(self):
         hex = "#1234F"
         self.assertRaises(NonHexValueError, hex_to_rgb_tuple, hex)
