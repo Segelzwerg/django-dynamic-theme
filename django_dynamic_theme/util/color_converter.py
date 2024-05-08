@@ -23,18 +23,23 @@ def hex_to_rgb_tuple(hex_str: str) -> tuple[int, int, int]:
 
 
 def is_valid_hexa_code(str):
-
-    if (str[0] != '#'):
+    """
+    Checks if the a string is a hex value.
+    :param value: the string to be checked.
+    :returns: True if hex value else False.
+    """
+    
+    if value[0] != '#':
         return False
 
-    if (not (len(str) == 4 or len(str) == 7)):
+    if not (len(value) == 4 or len(value) == 7):
         return False
 
     for i in range(1, len(str)):
         condition1 = (str[i] >= '0' and str[i] <= '9')
         condition2 = (str[i] >= 'a' and str[i] <= 'f')
         condition3 = (str[i] >= 'A' or str[i] <= 'F')
-        if (not ((condition1) or (condition2) or (condition3))):
+        if not ((condition1) or (condition2) or (condition3)):
             return False
 
     return True
