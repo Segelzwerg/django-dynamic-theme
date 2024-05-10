@@ -1,5 +1,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-dynamic-theme)
 [![](https://img.shields.io/pypi/djversions/django-dynamic-theme?color=0C4B33&logo=django&logoColor=white&label=django)](https://www.djangoproject.com/)
+![GitHub Release](https://img.shields.io/github/v/release/segelzwerg/django-dynamic-theme)
+
 
 [![Documentation Status](https://readthedocs.org/projects/django-dynamic-theme/badge/?version=latest)](https://django-dynamic-theme.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/Segelzwerg/django-dynamic-theme/graph/badge.svg?token=YBTYAESSWE)](https://codecov.io/gh/Segelzwerg/django-dynamic-theme)
