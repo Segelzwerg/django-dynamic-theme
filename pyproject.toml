@@ -10,7 +10,7 @@ classifiers = [
 
 [tool.poetry]
 name = "django-dynamic-theme"
-version = "0.0.7"
+version = "0.0.8"
 description = "This enables the administrator of a django website to change the theme on the fly."
 authors = ["Segelzwerg <25705862+Segelzwerg@users.noreply.github.com>"]
 readme = "README.md"
