@@ -21,7 +21,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.10"
 django = "^5.0"
-setuptools = "^69.2.0"
+setuptools = ">=69.2,<71.0"
 django-colorfield = "^0.11.0"
 django-compressor = "^4.4"
 django-libsass = "^0.9"
