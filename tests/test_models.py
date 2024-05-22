@@ -94,7 +94,7 @@ class BackgroundModelTest(TestCase):
 
     def test_export(self):
         background = Background(primary_bg=self.color)
-        expected_string = f"background: {self.color};"
+        expected_string = f"background-color: {self.color};"
         self.assertEqual(expected_string, background.export())
 
     def test_save_if_not_attached_to_theme(self):

@@ -83,7 +83,7 @@ class Background(ThemeElement):
         """
         Exports it's values as string in SCSS format.
         """
-        return f"background: {self.primary_bg};"
+        return f"background-color: {self.primary_bg};"
 
 
 class MediaGallery(ThemeElement):
