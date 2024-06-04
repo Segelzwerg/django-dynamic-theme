@@ -33,7 +33,10 @@ class AbstractModelMeta(ABCMeta, type(models.Model)):
 
 
 class ThemeElement(models.Model, metaclass=AbstractModelMeta):
-    """Abstract class for theme elements."""
+    """
+    Abstract class for theme elements.
+    :param name: The name of that configuration.
+    """
 
     name = models.CharField(max_length=50)
 
@@ -75,6 +78,7 @@ class ThemeElement(models.Model, metaclass=AbstractModelMeta):
 class Background(ThemeElement):
     """
     Stores the background colors.
+    :param primary_bg: The color of the primary background.
     """
 
     primary_bg = ColorField(verbose_name="Primary Name")
@@ -109,6 +113,8 @@ class MediaGallery(ThemeElement):
         verbose_name_plural = "Media Galleries"
 
     def export(self) -> str:
+        """Returns configuration as string."""
+        
         margin_left = f"margin-left: {self.margin_left};"
         margin_right = f"margin-right: {self.margin_right};"
         max_width = f"max-width: {self.max_width};"
@@ -123,7 +129,14 @@ class MediaGallery(ThemeElement):
 
 
 class Navbar(ThemeElement):
-    """Stores the theming of bootstrap 5 nav bar"""
+    """
+    Stores the theming of bootstrap 5 nav bar
+    :param background_color: Background color of the Navbar
+    :param opacity: How transparent the background is. 0 is full transparent.
+    :param font_size: The size of nav bar font.
+    :param text_color: Color of the nav bar text.
+    :param text_opacity: How transparent the text is. 0 is full transparent.
+    """
 
     background_color = ColorField()
     opacity = models.DecimalField(
@@ -160,6 +173,11 @@ class Navbar(ThemeElement):
 class Theme(models.Model):
     """
     Combines all values.
+    :param name: Name of the theme. Also used as file name + .scss. See self.path()
+    :param default: Unique. If that is the default theme.
+    :param background: ThemeElement for background.
+    :param media_gallery: ThemeElement for media gallery.
+    :param navrbar: ThemeElement for nav bar.
     """
 
     name = models.CharField(max_length=50)
