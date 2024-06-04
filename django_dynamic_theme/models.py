@@ -114,7 +114,7 @@ class MediaGallery(ThemeElement):
 
     def export(self) -> str:
         """Returns configuration as string."""
-        
+
         margin_left = f"margin-left: {self.margin_left};"
         margin_right = f"margin-right: {self.margin_right};"
         max_width = f"max-width: {self.max_width};"
