@@ -127,6 +127,7 @@ text-align: left;
 
     def test_validate(self):
         media_gallery = MediaGallery(
+            name="test",
             margin_left="auto",
             margin_right="auto",
             max_width="fit-content",
@@ -138,6 +139,7 @@ text-align: left;
 
     def test_margin_left_validate(self):
         media_gallery = MediaGallery(
+            name="test",
             margin_left="test",
             margin_right="auto",
             max_width="fit-content",
