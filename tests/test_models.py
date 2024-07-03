@@ -125,6 +125,17 @@ text-align: left;
 .row {{margin-top: 10px;}}}}"""
         self.assertEqual(expected_string, media_gallery.export())
 
+    def test_validate(self):
+        media_gallery = MediaGallery(
+            margin_left="auto",
+            margin_right="auto",
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
+        with not self.assertRaises(ValidationError):
+            media_gallery.clean_fields()
+
     def test_margin_left_validate(self):
         media_gallery = MediaGallery(
             margin_left="test",
