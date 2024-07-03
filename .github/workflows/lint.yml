@@ -31,5 +31,5 @@ jobs:
         uses: tj-actions/bandit@v5
         with:
           targets: |
-            lh_django about_us contact home navigation repertoire videos
+            django_dynamic_theme
           options: "-r -c pyproject.toml"
