@@ -19,7 +19,7 @@ class BackgroundAdmin(admin.ModelAdmin):
     The admin model to set the backgrounds.
     """
 
-    list_display = ["primary_bg"]
+    list_display = ["name", "primary_bg"]
 
 
 @admin.register(MediaGallery)
@@ -29,6 +29,7 @@ class MediaGalleryAdmin(admin.ModelAdmin):
     """
 
     list_display = [
+        "name",
         "margin_left",
         "margin_right",
         "max_width",
@@ -44,6 +45,7 @@ class NavbarAdmin(admin.ModelAdmin):
     """
 
     list_display = [
+        "name",
         "background_color",
         "opacity",
         "font_size",
