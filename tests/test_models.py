@@ -133,8 +133,8 @@ text-align: left;
             item_align="left",
             row_margin_top="10px",
         )
-        with not self.assertRaises(ValidationError):
-            media_gallery.clean_fields()
+        media_gallery.clean_fields()
+        self.assertEqual("auto", media_gallery.margin_left)
 
     def test_margin_left_validate(self):
         media_gallery = MediaGallery(
