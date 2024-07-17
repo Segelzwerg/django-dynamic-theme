@@ -125,6 +125,30 @@ text-align: left;
 .row {{margin-top: 10px;}}}}"""
         self.assertEqual(expected_string, media_gallery.export())
 
+    def test_validate(self):
+        media_gallery = MediaGallery(
+            name="test",
+            margin_left="auto",
+            margin_right="auto",
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
+        media_gallery.clean_fields()
+        self.assertEqual("auto", media_gallery.margin_left)
+
+    def test_margin_left_validate(self):
+        media_gallery = MediaGallery(
+            name="test",
+            margin_left="test",
+            margin_right="auto",
+            max_width="fit-content",
+            item_align="left",
+            row_margin_top="10px",
+        )
+        with self.assertRaises(ValidationError):
+            media_gallery.clean_fields()
+
 
 class NavbarTest(TestCase):
     def setUp(self) -> None:
