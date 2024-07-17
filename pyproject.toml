@@ -2,7 +2,7 @@
 
 [tool.poetry]
 name = "django-dynamic-theme"
-version = "0.0.9"
+version = "0.0.10"
 description = "This enables the administrator of a django website to change the theme on the fly."
 authors = ["Segelzwerg <25705862+Segelzwerg@users.noreply.github.com>"]
 readme = "README.md"
