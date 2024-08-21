@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cello Duo - {% block title %}{%endblock%}</title>
+  </head>
+  {% load django_bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% load compress %}
+  {% load static %}
+  {% compress css %}
+  {% load i18n %}
+  <link type="text/x-scss" rel="stylesheet" href="{% static theme_file %}" />
+  {% endcompress %}
+  <body>
+  <body>
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
