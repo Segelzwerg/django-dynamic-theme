@@ -26,12 +26,13 @@ class MissingThemeHandleMiddleware:
         If a default theme is set it will export this one.
         If there is not default theme it will export the first one.
         If no theme exists it will raise an error.
+        It will only raise a warning in debug mode.
         """
         try:
             theme = Theme.objects.get(default=True)
         except Theme.DoesNotExist:
             theme = Theme.objects.first()
-        if theme is None and settings.DEBUG:
+        if theme is None and not settings.DEBUG:
             raise ThemeMissingError from exception
         if theme is None:
             warnings.warn("Theme is missing.")
