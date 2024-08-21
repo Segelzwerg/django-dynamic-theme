@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-&#0cn9f%%_2j6i@cyd3oq+2rvb$o0fj0y*vnhka23s@$b^6e*&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django_dynamic_theme",
     "compressor",
     "django_bootstrap5",
+    "colorfield",
 ]
 
 MIDDLEWARE = [
@@ -121,8 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = BASE_DIR.parent / "example_static"  # collect to
+STATICFILES_DIRS = [BASE_DIR / "static", BASE_DIR / "themes"]  # collect from
+
 STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     "compressor.finders.CompressorFinder",
 ]
 COMPRESS_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
