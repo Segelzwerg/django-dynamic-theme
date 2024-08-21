@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_dynamic_theme",
     "compressor",
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
