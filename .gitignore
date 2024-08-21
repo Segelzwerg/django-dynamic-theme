@@ -172,3 +172,4 @@ docs/_static/
 docs/_templates/
 coverage.json
 
+example_static/*
