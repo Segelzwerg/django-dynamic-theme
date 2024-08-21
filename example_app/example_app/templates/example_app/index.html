@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load embed_video_tags %}
+
+{% block title %}
+  About Us
+{% endblock %}
+
+{% block navbar %}
+  {% with nav_bar_escape=".." %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+{% block content %}
+Hello World
+
+{% endblock content %}
