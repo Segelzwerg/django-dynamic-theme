@@ -1,0 +1,12 @@
+<html>
+  {% load compress %}
+  {% load static %}
+  {% compress css %}
+  <link type="text/x-scss" rel="stylesheet" href="{% static theme_file %}" />
+  <body>
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
