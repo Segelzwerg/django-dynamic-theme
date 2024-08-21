@@ -74,8 +74,18 @@ class MiddlewareTest(TestCase):
         self.assertEqual(1, get_response.call_count)
         self.assertTrue(path.exists(self.file_path))
 
-    def test_save_file_no_theme(self):
+    def test_save_file_no_theme_in_debug(self):
         settings.DEBUG = True
+        request = MagicMock()
+        get_response = MagicMock()
+        middleware = MissingThemeHandleMiddleware(get_response)
+        with self.assertWarnsMessage(Warning, "Theme is missing."):
+            middleware.process_exception(request, UncompressableFileError())
+        self.assertEqual(0, get_response.call_count)
+        self.assertFalse(path.exists(self.file_path))
+
+    def test_save_file_no_theme_in_production(self):
+        settings.DEBUG = False
         request = MagicMock()
         get_response = MagicMock()
         middleware = MissingThemeHandleMiddleware(get_response)
