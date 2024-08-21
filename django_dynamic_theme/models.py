@@ -109,6 +109,7 @@ class MediaGallery(ThemeElement):
     # pylint: disable=too-few-public-methods
     class Meta:
         """Meta definitions of Media Gallery"""
+
         verbose_name = "Media Gallery"
         verbose_name_plural = "Media Galleries"
 
@@ -207,7 +208,7 @@ class Theme(models.Model):
         """
         Returns the path based on the file name.
         """
-        return f"static/{self.name}.scss"
+        return f"themes/{self.name}.scss"
 
     # pylint: disable=no-member
     def export(self) -> str:
@@ -216,11 +217,11 @@ class Theme(models.Model):
         """
         background = self.background.export()
         if not self.media_gallery:
-            mediagallery = ''
+            mediagallery = ""
         else:
             mediagallery = self.media_gallery.export()
         if not self.navbar:
-            navbar = ''
+            navbar = ""
         else:
             navbar = self.navbar.export()
 
