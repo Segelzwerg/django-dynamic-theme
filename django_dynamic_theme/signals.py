@@ -2,7 +2,7 @@
 """
 
 from django.dispatch import receiver
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_migrate
 
 from django_dynamic_theme.models import Theme
 from django_dynamic_theme.util.scss_editor import ScssEditor
@@ -19,3 +19,13 @@ def delete_file(
     """
     scss_editor = ScssEditor(instance.path)
     scss_editor.delete()
+
+
+@receiver(post_migrate)
+def save_file(**kwargs) -> None:
+    """
+    Saves the default theme file.
+    """
+    default_theme: Theme = Theme.objects.filter(default=True).first()
+    if default_theme:
+        default_theme.write_export()
