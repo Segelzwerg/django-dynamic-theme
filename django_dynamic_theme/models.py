@@ -89,6 +89,13 @@ class Background(ThemeElement):
         """
         return f"background-color: {self.primary_bg};"
 
+def validate_margin(value):
+    if value == "auto"
+        return
+    raise ValidationError(
+        _("%(value)s is not auto."),
+        params={"value": value},
+    )
 
 class MediaGallery(ThemeElement):
     """
