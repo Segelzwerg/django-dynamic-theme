@@ -24,6 +24,8 @@ INSTALLED_APPS = [
   ...,
   "django_dynamic_theme",
   "compressor",
+  "django_bootstrap5",
+
 ]
 ...
 # Default setting but you can set it to some other path.
